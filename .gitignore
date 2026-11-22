@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Future ports (uncomment/extend as needed when this becomes a Python/C#/C++ project)
+__pycache__/
+*.pyc
+.venv/
+venv/
+bin/
+obj/
+build/
+*.exe
+*.o
+*.obj

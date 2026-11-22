@@ -1,0 +1,1281 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Do diagrama Fe-C à microestrutura: difusão, cementação e transformação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDF0F3; --panel:#FFFFFF; --ink:#18202B; --muted:#5A6573; --line:#CBD2DA;
+  --accent:#2E63C8; --warm:#C0622F; --dg-line:#18202B; --dg-fill:#F4F6F8; --dg-shade:#C9D0D8; --dg-red:#C8322B; --dg-steel:#DCE7F6; --dg-cast:#DDF0E3;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#141A22;--panel:#1C242F;--ink:#E6EBF1;--muted:#9AA6B4;--line:#2F3A47;--accent:#7FA6F0;--warm:#F0A070;--dg-line:#DCE3EA;--dg-fill:#202A36;--dg-shade:#3A4552;--dg-red:#FF6B5E;--dg-steel:#1E2C40;--dg-cast:#1D3328;}
+}
+:root[data-theme="dark"]{--bg:#141A22;--panel:#1C242F;--ink:#E6EBF1;--muted:#9AA6B4;--line:#2F3A47;--accent:#7FA6F0;--warm:#F0A070;--dg-line:#DCE3EA;--dg-fill:#202A36;--dg-shade:#3A4552;--dg-red:#FF6B5E;--dg-steel:#1E2C40;--dg-cast:#1D3328;}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1240px;margin:0 auto;padding:26px 18px 48px}
+h1{font-family:"Newsreader",Georgia,serif;font-weight:600;font-size:clamp(26px,3.6vw,38px);line-height:1.15;margin:0 0 6px;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:74ch;margin:0 0 18px}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:940px){.grid{grid-template-columns:1fr}}
+.col{display:grid;gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+.stage{position:relative}
+#cv{display:block;width:100%;height:auto;aspect-ratio:3/2;border-radius:6px;image-rendering:pixelated;background:#EEF1F4}
+.phase{position:absolute;top:10px;left:10px;background:rgba(24,32,43,.84);color:#fff;font-size:13px;padding:5px 11px;border-radius:20px;max-width:calc(100% - 20px)}
+.scalebar{position:absolute;left:10px;bottom:10px;color:#18202B;font-size:12px;background:rgba(255,255,255,.9);padding:4px 8px 6px;border-radius:5px}
+.scalebar i{display:block;height:4px;background:#18202B;margin-top:3px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin-top:10px}
+.legend b{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line)}
+h2{font-family:"Newsreader",Georgia,serif;font-weight:600;font-size:20px;margin:0 0 10px}
+h3{font-size:14px;font-weight:600;margin:16px 0 8px;padding-top:12px;border-top:1px solid var(--line)}
+h3.first{border-top:0;padding-top:0;margin-top:0}
+#dg{display:block;width:100%;height:400px;touch-action:none;cursor:grab}
+#dg.drag{cursor:grabbing}
+.verdict{font-size:14px;margin:10px 0 0;padding:10px 12px;border-radius:8px;background:var(--dg-fill);border:1px solid var(--line)}
+.verdict b{font-weight:600}
+.field{margin-bottom:12px}
+.field label{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:500}
+.field output{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:600;white-space:nowrap}
+.field small{display:block;color:var(--muted);font-size:12.5px;line-height:1.4}
+input[type=range]{width:100%;accent-color:var(--accent);margin:6px 0 2px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:4px 0 12px}
+.seg button{flex:1;border:0;background:transparent;color:var(--ink);padding:8px 6px;font:inherit;font-size:13.5px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px}
+.btn{font:inherit;font-size:14px;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.presets .btn{font-size:13px;padding:6px 10px}
+.btn.primary{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.btn:focus-visible,.seg button:focus-visible,input:focus-visible,#dg:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 16px;margin-top:16px}
+@media (max-width:560px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat span{display:block;font-size:12.5px;color:var(--muted);line-height:1.35}
+.stat strong{font-size:18px;font-variant-numeric:tabular-nums;font-weight:600}
+.stat em{font-style:normal;font-size:12.5px;color:var(--muted);font-weight:400}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+@media (max-width:760px){.charts{grid-template-columns:1fr}}
+.charts canvas{display:block;width:100%;height:220px}
+.cap{font-size:13px;color:var(--muted);margin:8px 0 0}
+.notes{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.notes p{margin:0 0 8px;max-width:70ch}
+.formula{font-family:"Newsreader",Georgia,serif;font-size:19px;margin:4px 0 8px}
+.src{font-size:12.5px;color:var(--muted)}
+.atom{margin-top:18px}
+.ladder{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+@media (max-width:760px){.ladder{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.rung{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--dg-fill)}
+.rung span{display:block;font-size:12.5px;color:var(--muted);line-height:1.35}
+.rung strong{display:block;font-size:17px;font-variant-numeric:tabular-nums;font-weight:600;margin:2px 0}
+.rung em{font-style:normal;font-size:12.5px;color:var(--muted)}
+.cells{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:640px){.cells{grid-template-columns:1fr}}
+.cells figure{margin:0}
+.cells canvas{display:block;width:100%;height:310px;background:var(--dg-fill);border-radius:8px;border:1px solid var(--line)}
+.cells figcaption{font-size:13.5px;margin-top:6px}
+.cells figcaption span{display:block;color:var(--muted)}
+.cells figcaption b{font-weight:600}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:14px;margin-bottom:10px}
+.check input{margin-top:4px;accent-color:var(--accent)}
+.cbar{margin-top:10px}
+.cbar i{display:block;height:10px;border-radius:5px;background:linear-gradient(90deg,#2D6BE6,#F5F7FA 50%,#E6383B)}
+.cbar div{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:3px;font-variant-numeric:tabular-nums}
+.profile{margin-top:18px}
+.profile canvas{display:block;width:100%;height:240px}
+.ladder{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important}
+.carb{margin-top:18px}
+.carbgrid{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.4fr);gap:18px}
+@media (max-width:820px){.carbgrid{grid-template-columns:1fr}}
+#c4{display:block;width:100%;height:280px}
+.steps{font-size:14px;line-height:1.55;margin-top:10px}
+.steps p{margin:0 0 6px}
+.steps .eqn{font-family:"Newsreader",Georgia,serif;font-size:16px}
+.steps b{font-weight:600}
+.tabs2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}
+@media (max-width:820px){.tabs2{grid-template-columns:1fr}}
+.tblwrap{overflow-x:auto}
+.tbl{border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums;width:100%}
+.tbl th,.tbl td{padding:3px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.tbl th{color:var(--muted);font-weight:600}
+.tbl td.l,.tbl th.l{text-align:left}
+.tbl .hl{background:var(--accent);color:#fff}
+.surf{position:absolute;top:44px;left:10px;font-size:12px;background:rgba(200,50,43,.9);color:#fff;padding:3px 8px;border-radius:12px}
+.steels{margin-top:18px}
+.layers{display:flex;flex-wrap:wrap;gap:6px 18px;margin:8px 0 0}
+.layers .check{margin:0}
+.classbar{display:flex;height:34px;border-radius:8px;overflow:hidden;border:1px solid var(--line);margin-bottom:12px;font-size:12px}
+.classbar div{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;padding:0 4px;color:#18202B}
+.steeltab tr.pick{cursor:pointer}
+.steeltab tr.pick:hover td{background:var(--dg-fill)}
+.steeltab tr.cur td{background:var(--accent);color:#fff}
+.steeltab td.l{white-space:normal;min-width:160px}
+.sae{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}
+@media (max-width:820px){.sae{grid-template-columns:1fr}}
+.sae p{margin:0 0 8px;font-size:14px;max-width:70ch}
+.ttlegend[hidden]{display:none}
+.ttlegend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12.5px;color:var(--muted);margin-top:8px}
+.ttlegend b{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-2px;margin-right:5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Do diagrama Fe-C à microestrutura</h1>
+  <p class="lede">Escolha o teor de carbono e as temperaturas no diagrama Fe-C. O aço é austenitizado, com crescimento de grão, e depois levado à temperatura de transformação. Ali a fase pró-eutetoide cresce controlada pela difusão do carbono (leis de Fick) e a perlita consome o restante. Por fim, a têmpera converte a austenita restante em martensita (com austenita retida, conforme Ms e o carbono local). Mais abaixo, a cementação aplica a solução da 2ª lei de Fick pela função erro, com as tabelas, e o perfil resultante pode ser levado para a própria simulação.</p>
+
+  <div class="grid">
+    <div class="col">
+      <div class="card">
+        <div class="stage">
+          <canvas id="cv" width="360" height="240" aria-label="Simulação da microestrutura"></canvas>
+          <div class="phase" id="phase">Austenitização</div>
+          <div class="surf" id="surf" hidden>← superfície cementada</div>
+          <div class="scalebar"><span id="sbarL">100 µm</span><i id="sbar"></i></div>
+        </div>
+        <div class="cbar" id="cbar" hidden><i></i><div><span id="cbLo"></span><span id="cbMid"></span><span id="cbHi"></span></div></div>
+        <div class="legend" id="legend"></div>
+        <div class="stats">
+          <div class="stat"><span>Tempo</span><strong id="sT">0</strong></div>
+          <div class="stat"><span>Grão austenítico (diâmetro)</span><strong id="sDg">–</strong></div>
+          <div class="stat"><span id="sProL">Fase pró-eutetoide</span><strong id="sPro">–</strong></div>
+          <div class="stat"><span>Perlita</span><strong id="sPer">–</strong></div>
+          <div class="stat"><span>Dimensão fractal da frente</span><strong id="sF">–</strong></div>
+          <div class="stat"><span>Escoamento (Hall-Petch)</span><strong id="sY">–</strong></div>
+          <div class="stat"><span>Martensita</span><strong id="sM">–</strong></div>
+          <div class="stat"><span>Austenita retida</span><strong id="sRA">–</strong></div>
+          <div class="stat"><span>Dureza da martensita (aprox.)</span><strong id="sH">–</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card">
+        <h2>Diagrama Fe-C</h2>
+        <div class="seg" style="margin-top:0"><button id="vFull" aria-pressed="true">Diagrama completo</button><button id="vZoom" aria-pressed="false">Ampliar região dos aços</button></div>
+        <canvas id="dg" tabindex="0" aria-label="Diagrama Fe-C interativo. Arraste os dois pontos para escolher o teor de carbono e as temperaturas."></canvas>
+        <div class="layers">
+          <label class="check"><input type="checkbox" id="lySteel" checked> Aços SAE/AISI e classes</label>
+          <label class="check"><input type="checkbox" id="lyTT"> Faixas de tratamento térmico</label>
+        </div>
+        <div class="ttlegend" id="ttleg" hidden><span><b style="background:#7E57C2;opacity:.6"></b>Normalização</span><span><b style="background:#2E9A57;opacity:.6"></b>Recozimento pleno / têmpera</span><span><b style="background:#C0622F;opacity:.6"></b>Esferoidização</span><span><b style="background:#2E63C8;opacity:.35"></b>Recristalização</span><span><b style="background:#8A94A3;opacity:.45"></b>Alívio de tensões</span></div>
+        <p class="verdict" id="verdict"></p>
+        <div class="presets" style="margin-top:12px">
+          <button class="btn" data-c="0.20" data-ta="900" data-tt="680">1020</button>
+          <button class="btn" data-c="0.42" data-ta="860" data-tt="660">Prova (0,42 %C)</button>
+          <button class="btn" data-c="0.76" data-ta="840" data-tt="650">Eutetoide</button>
+          <button class="btn" data-c="1.20" data-ta="940" data-tt="680">Hiper (1,2 %C)</button>
+          <button class="btn" data-c="0.40" data-ta="800" data-tt="760">Entre A1 e A3</button>
+          <button class="btn" data-c="0.45" data-ta="850" data-tt="660" data-q="direct">Têmpera 1045</button>
+          <button class="btn" data-c="0.45" data-ta="850" data-tt="660" data-q="hold" data-h="1.45">Têmpera incompleta</button>
+          <button class="btn" data-c="1.20" data-ta="880" data-tt="700" data-q="direct">Austenita retida (1,2 %C)</button>
+          <button class="btn" data-c="0.15" data-ta="800" data-tt="770" data-q="hold" data-h="3.5">Bifásico (α + M)</button>
+        </div>
+        <div class="field">
+          <label for="C">Teor de carbono <output id="CO"></output></label>
+          <input type="range" id="C" min="0.05" max="1.6" step="0.01" value="0.42">
+        </div>
+        <div class="field">
+          <label for="Ta">Temperatura de austenitização <output id="TaO"></output></label>
+          <input type="range" id="Ta" min="750" max="1100" step="5" value="860">
+        </div>
+        <div class="field">
+          <label for="Tt">Temperatura de transformação <output id="TtO"></output></label>
+          <input type="range" id="Tt" min="560" max="900" step="5" value="660">
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Parâmetros</h2>
+        <h3 class="first">Austenitização</h3>
+        <div class="field">
+          <label for="ta">Tempo de encharque <output id="taO"></output></label>
+          <input type="range" id="ta" min="0" max="200" step="10" value="100">
+          <small>A mobilidade dos contornos cresce exponencialmente com a temperatura de austenitização. Mais tempo ou mais temperatura levam a grão austenítico mais grosseiro, com menos contorno para nuclear.</small>
+        </div>
+        <div class="field">
+          <label for="prt">Partículas que ancoram contornos <output id="prtO"></output></label>
+          <input type="range" id="prt" min="0" max="3" step="0.25" value="0">
+          <small>Carbonetos e nitretos de microligantes (Nb, Ti, V, Al) seguram o grão fino, como nos aços HSLA.</small>
+        </div>
+        <h3>Transformação</h3>
+        <div class="field">
+          <label for="shp">Forma da frente da perlita <output id="shpO"></output></label>
+          <input type="range" id="shp" min="-1.5" max="2.5" step="0.1" value="0.2">
+          <small>À direita, o crescimento é controlado pela difusão do carbono e a frente se ramifica em padrão fractal.</small>
+        </div>
+        <div class="field">
+          <label for="nm">Ajuste da nucleação N <output id="nmO"></output></label>
+          <input type="range" id="nm" min="-1" max="1" step="0.1" value="0">
+        </div>
+        <div class="field">
+          <label for="gm">Ajuste do crescimento G <output id="gmO"></output></label>
+          <input type="range" id="gm" min="-1" max="0.5" step="0.1" value="0">
+          <small>N e G já variam com o super-resfriamento abaixo de A1. Estes controles multiplicam os valores calculados.</small>
+        </div>
+        <div class="field">
+          <label>Onde a perlita nucleia</label>
+          <div class="seg">
+            <button id="mGB" aria-pressed="true">Contornos e interfaces</button>
+            <button id="mRD" aria-pressed="false">Qualquer ponto</button>
+          </div>
+        </div>
+        <h3>Têmpera (martensita)</h3>
+        <div class="seg">
+          <button id="qN" aria-pressed="true">Sem têmpera</button>
+          <button id="qD" aria-pressed="false">Têmpera direta</button>
+          <button id="qH" aria-pressed="false">Após espera em Tt</button>
+        </div>
+        <div class="field" id="qHF" hidden>
+          <label for="qh">Tempo em Tt antes de temperar <output id="qhO"></output></label>
+          <input type="range" id="qh" min="0" max="3.5" step="0.05" value="1">
+          <small>Se a espera passar do início da transformação, a ferrita ou a perlita já formadas não viram martensita: têmpera incompleta.</small>
+        </div>
+        <div class="seg">
+          <button id="qA" aria-pressed="true">Até 25 °C</button>
+          <button id="qS" aria-pressed="false">Subzero (−196 °C)</button>
+        </div>
+        <small style="display:block;color:var(--muted);font-size:12.5px;line-height:1.4;margin:-4px 0 10px">A austenita que sobrar vira martensita sem difusão, com o carbono local, por Koistinen–Marburger: f = 1 − exp[−0,011·(Ms − T)].</small>
+        <h3>Aparência</h3>
+        <div class="seg">
+          <button id="pOr" aria-pressed="true">Cores por fase</button>
+          <button id="pMi" aria-pressed="false">Micrografia (Nital)</button>
+        </div>
+        <label class="check"><input type="checkbox" id="carb"> Mostrar mapa de carbono da austenita (%C)</label>
+        <div class="field">
+          <label>Unidade de comprimento</label>
+          <div class="seg"><button id="uUm" aria-pressed="true">µm</button><button id="uNm" aria-pressed="false">nm</button><button id="uA" aria-pressed="false">Å (angstrom)</button></div>
+        </div>
+        <div class="field">
+          <label for="spd">Velocidade da animação <output id="spdO"></output></label>
+          <input type="range" id="spd" min="1" max="8" step="1" value="3">
+        </div>
+        <div class="btns">
+          <button class="btn primary" id="play">Pausar</button>
+          <button class="btn" id="restart">Recomeçar</button>
+          <button class="btn" id="reseed">Nova amostra</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card steels">
+    <h2>Onde ficam os aços no diagrama</h2>
+    <p class="cap" style="margin:0 0 12px">Classificação pelo teor de carbono e posição dos aços SAE/AISI mais comuns. Toque numa linha para levar o aço ao diagrama e à simulação. As temperaturas seguem as regras práticas do mapa de tratamentos térmicos da Aula 7 (Krauss/ASM, Fig. 13.1), calculadas com as linhas A1, A3 e Acm deste diagrama.</p>
+    <div class="classbar" id="classbar"></div>
+    <div class="tblwrap"><table class="tbl steeltab" id="steelTab"></table></div>
+    <div class="sae">
+      <div>
+        <h3 class="first">Como ler a designação SAE/AISI</h3>
+        <p>Os dois primeiros dígitos indicam a família e os dois (ou três) últimos, o carbono em centésimos de %. Assim, <b>1045</b> é aço-carbono comum com cerca de 0,45 %C, e <b>52100</b> é aço ao cromo com cerca de 1,00 %C.</p>
+        <p class="src">10XX: carbono comum (Mn ≤ 1,00 %) · 11XX: ressulfurado · 12XX: refosforado e ressulfurado · 15XX: Mn &gt; 1,00 % · 13XX: 1,75 % Mn · 40XX: Mo · 41XX: Cr-Mo · 43XX: Ni-Cr-Mo · 51XX e 52XXX: Cr · 61XX: Cr-V · 86XX e 87XX: Ni-Cr-Mo · 92XX: Si-Mn. Fonte: Tabela 1.1 da Aula 2.</p>
+      </div>
+      <div>
+        <h3 class="first">Regras de temperatura usadas</h3>
+        <p><b>Recozimento pleno e têmpera:</b> hipoeutetoides a A3 + 30 a 50 °C; hipereutetoides a A1 + 30 a 50 °C (austenita + cementita, sem dissolver a rede).</p>
+        <p><b>Normalização:</b> A3 + 50 a 80 °C (hipo) ou Acm + 50 a 80 °C (hiper), para dissolver a rede de cementita.</p>
+        <p><b>Esferoidização:</b> logo abaixo de A1 (cerca de 700 a 720 °C) por longo tempo, ou ciclando em torno de A1. <b>Recristalização:</b> cerca de 600 a 700 °C. <b>Alívio de tensões:</b> cerca de 550 a 650 °C.</p>
+        <p class="src">Os aços ligados (marcados) têm A1 e A3 deslocados pelos elementos de liga, então as temperaturas calculadas são só indicativas. Para valores de projeto, consulte o ASM Handbook, vol. 4 (Heat Treating) e as normas ASTM/SAE do material.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts">
+    <div class="card">
+      <h2>Frações durante a transformação</h2>
+      <canvas id="c1" aria-label="Frações de fase em função do tempo"></canvas>
+      <p class="cap" id="c1cap">Tempo real em segundos, calculado a partir da difusividade do carbono. A linha tracejada é o limite dado pela regra da alavanca.</p>
+    </div>
+    <div class="card">
+      <h2>Crescimento do grão austenítico</h2>
+      <canvas id="c2" aria-label="Área média do grão austenítico"></canvas>
+      <p class="cap">Sem partículas, a área média cresce quase linearmente no tempo (d² − d₀² = k·t). Com partículas, estabiliza no limite de Zener.</p>
+    </div>
+  </div>
+
+  <div class="card profile">
+    <h2>Perfil de carbono (leis de Fick)</h2>
+    <canvas id="c3" aria-label="Concentração de carbono ao longo de uma linha da micrografia"></canvas>
+    <p class="cap">Concentração de carbono ao longo da linha tracejada na micrografia. Toque ou clique na imagem para escolher outra linha. Em vermelho, a austenita; em laranja, a ferrita (0,022 %C); em azul, a perlita. À frente da ferrita forma-se um "morro" de carbono rejeitado que só se desfaz por difusão. A faixa azul-clara é a janela pseudoeutetoide: a perlita só cresce na austenita cuja composição cai dentro dela.</p>
+  </div>
+
+  <div class="card carb">
+    <h2>Cementação: 2ª lei de Fick e a função erro</h2>
+    <p class="cap" style="margin:0 0 14px">Peça de aço com C₀ = teor escolhido no diagrama, exposta a uma atmosfera que mantém a superfície em C<sub>s</sub>. Para um sólido semi-infinito com D constante, a solução da 2ª lei de Fick é C(x,t) = C<sub>s</sub> − (C<sub>s</sub> − C₀)·erf(x / 2√(D·t)).</p>
+    <div class="carbgrid">
+      <div>
+        <div class="field">
+          <label for="kCs">Carbono na superfície, Cₛ <output id="kCsO"></output></label>
+          <input type="range" id="kCs" min="0.6" max="1.4" step="0.05" value="1.0">
+        </div>
+        <div class="field">
+          <label for="kT">Temperatura de cementação <output id="kTO"></output></label>
+          <input type="range" id="kT" min="850" max="1000" step="5" value="925">
+        </div>
+        <div class="field">
+          <label for="kt">Tempo de cementação <output id="ktO"></output></label>
+          <input type="range" id="kt" min="0.25" max="24" step="0.25" value="2">
+        </div>
+        <div class="field">
+          <label>Coeficiente de difusão do C na austenita</label>
+          <div class="seg"><button id="kAula" aria-pressed="true">Aula 3</button><button id="kCal" aria-pressed="false">Tabela (Callister)</button></div>
+        </div>
+        <div class="field">
+          <label for="kCe">Teor que define a camada cementada <output id="kCeO"></output></label>
+          <input type="range" id="kCe" min="0.3" max="0.9" step="0.05" value="0.4">
+        </div>
+        <div class="field">
+          <label for="kx">Problema inverso: profundidade x <output id="kxO"></output></label>
+          <input type="range" id="kx" min="0.1" max="2" step="0.05" value="0.5">
+        </div>
+        <div class="field">
+          <label for="kCx">…com teor desejado Cₓ <output id="kCxO"></output></label>
+          <input type="range" id="kCx" min="0.3" max="1.3" step="0.05" value="0.8">
+        </div>
+        <label class="check"><input type="checkbox" id="kSim"> Usar este perfil na simulação (superfície à esquerda da micrografia; o campo mostra os primeiros 0,72 mm)</label>
+      </div>
+      <div>
+        <canvas id="c4" aria-label="Perfil de carbono da cementação"></canvas>
+        <div class="steps" id="kSteps"></div>
+      </div>
+    </div>
+    <div class="tabs2">
+      <div>
+        <h3 class="first">Tabela da função erro</h3>
+        <div class="tblwrap"><table class="tbl" id="erfTab"></table></div>
+        <p class="src">Valores de erf(z). As linhas destacadas são as usadas na interpolação linear acima.</p>
+      </div>
+      <div>
+        <h3 class="first">Tabela de difusividades</h3>
+        <div class="tblwrap"><table class="tbl" id="dTab"></table></div>
+        <p class="src">D = D₀·exp(−Q/RT). Valores de tabela do Callister, do slide da Aula 3 e, para o Mn, aproximados de literatura. A linha destacada é a usada na cementação.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card atom">
+    <h2>Da micrografia ao átomo</h2>
+    <p class="cap" style="margin:0 0 12px">O mesmo aço visto em escalas cada vez menores. Os valores mudam com o teor de carbono e a temperatura escolhidos no diagrama. 1 µm = 1000 nm = 10 000 Å.</p>
+    <div class="ladder" id="ladder"></div>
+    <div class="cells">
+      <figure><canvas id="aG" aria-label="Face (001) da célula CFC da austenita, em escala"></canvas>
+        <figcaption><b>Austenita (γ), CFC</b><span id="aGcap"></span></figcaption></figure>
+      <figure><canvas id="aA" aria-label="Face (001) da célula CCC da ferrita, em escala"></canvas>
+        <figcaption><b>Ferrita (α), CCC</b><span id="aAcap"></span></figcaption></figure>
+    </div>
+    <p class="cap">Desenho em escala, face (001). Círculos cinza são átomos de Fe, o círculo verde é o espaço livre do sítio octaédrico e o contorno vermelho tracejado é um átomo de carbono (raio 0,77 Å). O carbono não cabe em nenhum dos dois sítios e distorce a rede, mas a distorção na austenita é muito menor. Por isso a solubilidade máxima é 2,14 %C na austenita e só 0,022 %C na ferrita (Aula 2, Lista 1).</p>
+  </div>
+
+  <div class="notes">
+    <div class="card">
+      <h2>Regra da alavanca usada</h2>
+      <p class="formula">W<sub>α,pró</sub> = (0,76 − C₀)/(0,76 − 0,022)</p>
+      <p>Abaixo de A1 a fase pró-eutetoide atinge no máximo esse valor. Entre A1 e A3 a linha de amarração usa as composições das linhas α/(α+γ) e γ/(α+γ) na temperatura escolhida, e a transformação para no equilíbrio α + γ. Para hipereutetoides, W<sub>Fe₃C,pró</sub> = (C₀ − 0,76)/(6,70 − 0,76).</p>
+      <p>As linhas A3 e Acm extrapoladas abaixo de 727 °C (tracejadas no diagrama) definem a janela pseudoeutetoide. No modelo, a perlita só nucleia em austenita cuja composição já entrou nessa janela, por isso ela espera a ferrita enriquecer a vizinhança. Quanto maior o super-resfriamento, mais larga a janela e menos fase pró-eutetoide chega a se formar.</p>
+      <p class="src">Aula 2 (diagrama Fe-C, regra da alavanca), Aula 3 (ferrita alotriomórfica nos contornos, rede de cementita, Avrami), Aula 8 (crescimento do grão austenítico) e Lista 1.</p>
+    </div>
+    <div class="card">
+      <h2>As leis de Fick no modelo</h2>
+      <p class="formula">J = −D·∂C/∂x  ·  ∂C/∂t = D·∇²C</p>
+      <p>Cada célula de austenita guarda seu teor de carbono. A cada passo, o carbono flui entre células vizinhas segundo a 1ª lei, e a soma dos fluxos atualiza a concentração, que é a 2ª lei em diferenças finitas: ΔC = (D·Δt/Δx²)·Σ(C<sub>viz</sub> − C). O passo Δt é escolhido para manter D·Δt/Δx² ≤ 0,2, o que garante estabilidade e dá tempo real em segundos.</p>
+      <p class="formula">D = 0,12·exp(−32000/RT) cm²/s</p>
+      <p>A interface α/γ avança enquanto a austenita vizinha estiver abaixo da composição da linha A3. A ferrita guarda só 0,022 %C, então o resto do carbono é empurrado para a austenita à frente. Se ele não difundir para longe, a austenita local chega à composição de A3 e a interface para. Daí vem o espessamento parabólico (x ∝ √(D·t)) e o equilíbrio da regra da alavanca entre A1 e A3. Na cementita pró-eutetoide o raciocínio se inverte: ela consome carbono e empobrece a austenita vizinha.</p>
+      <p class="formula">f<sub>M</sub> = 1 − exp[−0,011·(Ms − T)]</p>
+      <p>Na têmpera, cada célula de austenita vira martensita sem difusão, usando o próprio teor de carbono: Ms vem da curva Ms × %C (concorda com Andrews, Ms = 539 − 423·C, até 0,6 %C) e a fração transformada, de Koistinen–Marburger (Lista 3). O que não transforma fica como austenita retida, em filmes entre as ripas. As ripas viram placas acima de cerca de 0,6 a 1,0 %C, e a dureza estimada segue a curva dureza × carbono da Aula 8. Ferrita e perlita já formadas não mudam: é a têmpera incompleta.</p>
+      <p class="src">A austenitização usa o modelo de Potts. A perlita usa as velocidades de crescimento de Mehl e Dube (Aula 3) e nucleia nos contornos e nas interfaces. Os valores de D do Mn são aproximados, de literatura. Cada célula representa 2 µm.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+const W=360,H=240,NC=W*H,CELL=2;
+const $=i=>document.getElementById(i);
+const cv=$('cv'),ctx=cv.getContext('2d'),img=ctx.createImageData(W,H),buf=new Uint32Array(img.data.buffer);
+const pack=(r,g,b)=>(255<<24)|(b<<16)|(g<<8)|r;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function fmt(n,d=1){return n.toFixed(d).replace('.',',');}
+
+// ---------------- diagrama Fe-C (aproximado) ----------------
+const A1=727,CE=0.76,CA=0.022,CCM=6.70;
+const A3T=[[0,912],[0.1,880],[0.2,852],[0.3,828],[0.4,806],[0.5,787],[0.6,768],[0.7,744],[0.76,727]];
+function TA3(C){ // temperatura A3 (C<=0.76) ou extrapolada (C>0.76)
+  if(C>=CE)return A1-300*(C-CE);
+  for(let i=0;i<A3T.length-1;i++){const a=A3T[i],b=A3T[i+1];if(C<=b[0])return a[1]+(C-a[0])/(b[0]-a[0])*(b[1]-a[1]);}
+  return A1;
+}
+function CgA3(T){ // composição da austenita sobre A3 em T (727..912)
+  for(let i=0;i<A3T.length-1;i++){const a=A3T[i],b=A3T[i+1];if(T<=a[1]&&T>=b[1])return a[0]+(T-a[1])/(b[1]-a[1])*(b[0]-a[0]);}
+  return T>912?0:CE;
+}
+const TAcm=C=>A1+304.3*(C-CE);        // Acm (e extrapolação abaixo de 727)
+const CgAcm=T=>CE+(T-A1)/304.3;
+function Calpha(T){return T>=A1?CA*(912-T)/(912-A1):CA*clamp((T-400)/(A1-400),0,1);}
+function upper(C){return C<CE?TA3(C):TAcm(C);}
+
+// previsão de frações para (C, T)
+function predict(C,T){
+  const r={type:C<CE-0.015?1:C>CE+0.015?2:0,pro:0,pearl:0,aus:0,regime:''};
+  const Tu=upper(C);
+  if(T>=Tu){r.aus=1;r.regime='stable';return r;}
+  if(T>=A1){
+    if(r.type===1){const cg=CgA3(T),ca=Calpha(T);r.pro=clamp((cg-C)/(cg-ca),0,1);}
+    else if(r.type===2){const cg=CgAcm(T);r.pro=clamp((C-cg)/(CCM-cg),0,1);}
+    r.aus=1-r.pro;r.regime='twophase';return r;
+  }
+  let eq=0;
+  if(r.type===1)eq=(CE-C)/(CE-CA);else if(r.type===2)eq=(C-CE)/(CCM-CE);
+  r.pro=eq;r.eq=eq;r.pearl=1-eq;r.regime='below';return r;
+}
+
+// ---------------- estado da simulação ----------------
+const NB=new Int32Array(NC*8).fill(-1);
+{const d=[[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]];
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++){const c=y*W+x;
+  for(let k=0;k<8;k++){const nx=x+d[k][0],ny=y+d[k][1];if(nx>=0&&nx<W&&ny>=0&&ny<H)NB[c*8+k]=ny*W+nx;}}}
+let seed=11,R=mk(seed);
+function mk(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+function poisson(l){if(l<=0)return 0;if(l<30){const L=Math.exp(-l);let k=0,p=1;do{k++;p*=R();}while(p>L);return k-1;}
+  let u=0,v=0;while(!u)u=R();while(!v)v=R();return Math.max(0,Math.round(l+Math.sqrt(l)*Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)));}
+
+const aus=new Int32Array(NC),ph=new Uint8Array(NC),gid=new Int32Array(NC),born=new Int32Array(NC),pagB=new Uint8Array(NC),u=new Float32Array(NC);
+const conv=new Int32Array(NC),convId=new Int32Array(NC),frC=new Int32Array(NC),frK=new Int8Array(NC),frId=new Int32Array(NC),elig=new Int32Array(NC),tmpN=new Int32Array(8);
+let ang=[0],nextG=1,stage='A',mcs=0,step=0,proCells=0,pearlCells=0;
+let pred=null,histA=[],histB=[],fit=null,fractal=null,auslast=0,ausId=0;
+let playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,paletteMode='or',nucMode='gb';
+const P={C:0.42,Ta:860,Tt:660};
+
+function reset(newSeed){
+  if(newSeed)seed=(Math.random()*1e9)|0;
+  R=mk(seed);
+  // austenita inicial fina (Voronoi)
+  const M=520,sx=new Float32Array(M),sy=new Float32Array(M);for(let i=0;i<M;i++){sx[i]=R()*W;sy[i]=R()*H;}
+  const cs=24,gx=Math.ceil(W/cs),gy=Math.ceil(H/cs),cells=[];for(let i=0;i<gx*gy;i++)cells.push([]);
+  for(let i=0;i<M;i++)cells[Math.min(gy-1,sy[i]/cs|0)*gx+Math.min(gx-1,sx[i]/cs|0)].push(i);
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){let b=1e18,bi=0;const cx=x/cs|0,cy=y/cs|0;
+    for(let j=Math.max(0,cy-2);j<=Math.min(gy-1,cy+2);j++)for(let i=Math.max(0,cx-2);i<=Math.min(gx-1,cx+2);i++)
+      for(const s of cells[j*gx+i]){const dx=sx[s]-x,dy=sy[s]-y,d=dx*dx+dy*dy;if(d<b){b=d;bi=s;}}
+    aus[y*W+x]=bi+1;}
+  ausId=M;
+  ph.fill(0);gid.fill(0);born.fill(0);u.fill(1);ang=[0];nextG=1;
+  const f=+$('prt').value/100,np=Math.round(f*NC/4);
+  for(let i=0;i<np;i++){const x=(R()*(W-1))|0,y=(R()*(H-1))|0,c=y*W+x;for(const k of [c,c+1,c+W,c+W+1]){ph[k]=4;aus[k]=-1;}}
+  tQ=-1;martFrac=0;raFrac=0;stage='A';mcs=0;step=0;proCells=0;pearlCells=0;proFrac=0;tSim=0;pearlT0=-1;histA=[[0,meanAus()]];histB=[];fit=null;fractal=null;Ct.fill(P.C);Cg.fill(P.C);phi.fill(0);
+  pred=predict(P.C,P.Tt);
+  setPhaseLabel();legend();render();stats();drawCharts();
+}
+
+// ---------- estágio A: crescimento do grão austenítico (Potts) ----------
+function energyA(c,v){let e=0;const b=c*8;for(let q=0;q<8;q++){const j=NB[b+q];if(j>=0&&aus[j]!==v)e++;}return e;}
+function stepA(){
+  for(let a=0;a<NC;a++){
+    const c=(R()*NC)|0;if(ph[c]===4)continue;const v=aus[c];
+    const j=NB[c*8+((R()*8)|0)];if(j<0)continue;const nv=aus[j];if(nv<0||nv===v)continue;
+    const dE=energyA(c,nv)-energyA(c,v);if(dE<0||(dE===0&&R()<0.5))aus[c]=nv;
+  }
+  mcs++;if(mcs%2===0)histA.push([mcs,meanAus()]);
+  if(mcs>=totalMCS())startB();
+}
+function mobility(){return clamp(Math.exp((P.Ta-860)/55),0.1,15);}
+function totalMCS(){return Math.min(1500,Math.round(+$('ta').value*mobility()));}
+let seenA=new Uint8Array(4096);
+function countAus(){if(seenA.length<ausId+2)seenA=new Uint8Array(ausId+2);else seenA.fill(0);let n=0,a=0;
+  for(let c=0;c<NC;c++){const v=aus[c];if(v>0){a++;if(!seenA[v]){seenA[v]=1;n++;}}}return [n,a];}
+function meanAus(){const [n,a]=countAus();return n?a/n:0;}
+
+// ---------- estágio B: transformação controlada pela difusão do carbono (leis de Fick) ----------
+const RCAL=1.987,DXCM=CELL*1e-4;                                      // cal/(mol·K) ; aresta da célula em cm
+const DC=T=>0.12*Math.exp(-32000/(RCAL*(T+273.15)));                  // cm²/s, carbono na austenita (Aula 3)
+const DMn=T=>0.178*Math.exp(-63000/(RCAL*(T+273.15)));                // cm²/s, Mn na austenita (aprox. de literatura)
+const Ct=new Float32Array(NC),Cg=new Float32Array(NC),phi=new Float32Array(NC),dCt=new Float32Array(NC);
+let tSim=0,dt=1,Dnow=0,pearlT0=-1,quiet=0,profRow=H>>1,carbonView=false,proFrac=0,ceqNow=0;
+const GTAB=[[560,-2.15],[600,-2.15],[620,-2.2],[640,-2.3],[660,-2.5],[680,-3.0],[690,-3.2],[700,-3.5],[715,-4.0],[727,-6]];
+function Gpearl(T){for(let i=0;i<GTAB.length-1;i++){const a=GTAB[i],b=GTAB[i+1];if(T>=a[0]&&T<=b[0])return Math.pow(10,a[1]+(T-a[0])/(b[0]-a[0])*(b[1]-a[1]));}return T<560?Math.pow(10,-2.15):0;} // mm/s (Mehl e Dube)
+function CgEq(T,type){ // composição da austenita em equilíbrio com a fase pró-eutetoide (linha A3 ou Acm, extrapolada abaixo de A1)
+  if(type===1)return T>=A1?CgA3(T):CE+(A1-T)/300;
+  return T>=A1?CgAcm(T):CE-(A1-T)/304.3;
+}
+function pseudo(T){return [CE-(A1-T)/304.3,CE+(A1-T)/300];}   // janela pseudoeutetoide: perlita pode se formar
+const Cp=()=>pred.type===1?CA:CCM;
+
+function startB(){
+  pagB.fill(0);
+  for(let c=0;c<NC;c++){if(aus[c]<0)continue;for(let q=1;q<8;q+=2){const j=NB[c*8+q];if(j>=0&&aus[j]>0&&aus[j]!==aus[c]){pagB[c]=1;break;}}}
+  auslast=meanAus();
+  pred=predict(P.C,P.Tt);
+  for(let c=0;c<NC;c++){if(ph[c]===4){Ct[c]=0;Cg[c]=0;}else{const v=carbMode?carbC((c%W+0.5)*CELL*1e-4):P.C;Ct[c]=v;Cg[c]=v;initC[c]=v;}}
+  phi.fill(0);seedOwner.fill(0);seedType.fill(0);
+  if(carbMode){const cmin=carbC(W*CELL*1e-4),cmax=carbC(0);has1=cmin<CE-0.02;has2=cmax>CE+0.02;}else{has1=pred.type===1;has2=pred.type===2;}tSim=0;pearlT0=-1;quiet=0;proFrac=0;histB=[[0,0,0]];
+  Dnow=DC(P.Tt);ceqNow=pred.type?CgEq(P.Tt,pred.type):CE;
+  const gm=Math.pow(10,+$('gm').value),Gc=P.Tt<A1?Gpearl(P.Tt)/(CELL*1e-3)*gm:0;   // células/s
+  dt=Math.min(0.2*DXCM*DXCM/Dnow,Gc>0?6/Gc:1e9,20);
+  tQ=-1;martFrac=0;raFrac=0;
+  if(QM==='direct'){stage='B';quench();return;}
+  if(pred.regime==='stable'&&!carbMode){if(QM!=='none'){stage='B';quench();return;}finish('stable');return;}
+  stage='B';setPhaseLabel();
+}
+function finish(kind){
+  stage=kind;if(kind==='done')fitAvrami();
+  setPhaseLabel();playing=false;$('play').textContent='Reproduzir';stats();drawCharts();updateAtom();
+}
+const nbTmp=new Int32Array(8);
+function giveCarbon(c,amount,front){ // distribui carbono (positivo ou negativo) entre as vizinhas austeníticas à frente
+  let n=0;const b=c*8;
+  for(let q=1;q<8;q+=2){const j=NB[b+q];if(j>=0&&ph[j]===0&&(!front||phi[j]===0))nbTmp[n++]=j;}
+  if(!n)for(let q=1;q<8;q+=2){const j=NB[b+q];if(j>=0&&ph[j]===0)nbTmp[n++]=j;}
+  if(!n){Cg[c]=Math.max(0,Cg[c]+amount/Math.max(0.1,1-phi[c]));return;}
+  const a=amount/n;for(let i=0;i<n;i++){const j=nbTmp[i];Cg[j]=Math.max(0,Cg[j]+a);}
+}
+function updCg(c){const p=phi[c];Cg[c]=p>0?Math.max(0,(Ct[c]-p*Cp())/(1-p)):Ct[c];}
+
+function stepB(){
+  step++;tSim+=dt;
+  const r=Dnow*dt/(DXCM*DXCM);
+  const nm=Math.pow(10,+$('nm').value),gm=Math.pow(10,+$('gm').value),sh=+$('shp').value;
+  let changes=0;
+  // 1) 2ª lei de Fick (forma de fluxo, J = −D·∂C/∂x), só através da austenita
+  dCt.fill(0);
+  for(let y=0;y<H;y++){const yo=y*W;for(let x=0;x<W;x++){const c=yo+x;if(ph[c]!==0)continue;
+    if(x<W-1){const j=c+1;if(ph[j]===0){const J=r*(Cg[j]-Cg[c]);dCt[c]+=J;dCt[j]-=J;}}
+    if(y<H-1){const j=c+W;if(ph[j]===0){const J=r*(Cg[j]-Cg[c]);dCt[c]+=J;dCt[j]-=J;}}}}
+  for(let c=0;c<NC;c++){if(ph[c]===0&&dCt[c]!==0){Cg[c]+=dCt[c];if(Cg[c]<0)Cg[c]=0;}}
+
+  // 2) fases pró-eutetoides: ferrita onde a austenita é hipoeutetoide, cementita onde é hipereutetoide
+  for(const tp of [1,2]){
+    if(!(tp===1?has1:has2))continue;
+    const cp=tp===1?CA:CCM,ceq=CgEq(P.Tt,tp);
+    const Cline=tp===1?Math.min(carbMode?P.C:P.C,0.74):Math.max(carbMode?CARB.Cs:P.C,0.78);
+    const s3=clamp(((tp===1?TA3(Cline):TAcm(Cline))-P.Tt)/150,0.05,1);
+    const rate=2e-4*Math.pow(10,1.5*s3)*(tp===2?3:1)*nm;      // por célula de contorno por segundo
+    let ne=0;
+    for(let c=0;c<NC;c++)if(pagB[c]&&ph[c]===0&&phi[c]===0&&(tp===1?(Cg[c]<ceq-0.05&&initC[c]<CE-0.02):(Cg[c]>ceq+0.05&&initC[c]>CE+0.02)))elig[ne++]=c;
+    const n=poisson(rate*dt*ne);
+    for(let i=0;i<n&&ne;i++){const c=elig[(R()*ne)|0];if(ph[c]===0&&phi[c]===0){phi[c]=0.05;seedOwner[c]=newGrain();seedType[c]=tp;changes++;}}
+    // crescimento: a interface avança conforme a supersaturação local; o carbono rejeitado (ou consumido) precisa difundir
+    const dEq=Math.abs(ceq-cp);
+    for(let c=0;c<NC;c++){
+      if(ph[c]!==0)continue;
+      if(phi[c]>0&&seedType[c]!==tp)continue;
+      let k=0,own=0;const b=c*8;
+      for(let q=1;q<8;q+=2){const j=NB[b+q];if(j>=0&&ph[j]===tp){k++;own=gid[j];}}
+      if(!k&&phi[c]===0)continue;
+      const drive=tp===1?ceq-Cg[c]:Cg[c]-ceq;
+      if(drive<=0)continue;
+      const geo=tp===2?(pagB[c]?25:0.08):(pagB[c]?4:0.45);
+      const dphi=Math.min(0.25,1.2*r*drive/dEq*Math.max(k,1)*geo);
+      if(phi[c]===0)seedType[c]=tp;
+      phi[c]+=dphi;changes++;
+      giveCarbon(c,dphi*(Cg[c]-cp),true);
+      if(phi[c]>=1){ph[c]=tp;gid[c]=own||seedOwner[c]||newGrain();born[c]=step;Ct[c]=cp;Cg[c]=0;phi[c]=0;seedType[c]=0;proCells++;}
+    }
+  }
+
+  // 3) perlita: só onde a austenita está na janela pseudoeutetoide
+  if(P.Tt<A1){
+    const [lo,hi]=pseudo(P.Tt),okC=c=>initC[c]<CE-0.02?Cg[c]>=lo:initC[c]>CE+0.02?Cg[c]<=hi:true;
+    const Gc=Gpearl(P.Tt)/(CELL*1e-3)*gm,g=Math.min(1,Gc*dt);
+    const s=clamp((A1-P.Tt)/160,0.04,1),rateN=Math.pow(10,-4.2+3*s)*nm;
+    let ne=0;
+    for(let c=0;c<NC;c++){if(ph[c]!==0||phi[c]>0.5||!okC(c))continue;
+      if(nucMode==='rd'||pagB[c]){elig[ne++]=c;continue;}
+      const b=c*8;for(let q=1;q<8;q+=2){const j=NB[b+q];if(j>=0&&(ph[j]===1||ph[j]===2)){elig[ne++]=c;break;}}}
+    const n=poisson(rateN*dt*ne/(1+Math.max(0,sh)*4));
+    for(let i=0;i<n&&ne;i++){const c=elig[(R()*ne)|0];if(ph[c]===0){ph[c]=3;gid[c]=newGrain();born[c]=step;Ct[c]=Cg[c];pearlCells++;changes++;if(pearlT0<0)pearlT0=tSim;}}
+    if(sh>0){for(let sw=0;sw<6;sw++)for(let y=0;y<H;y++){const yo=y*W;for(let x=0;x<W;x++){const c=yo+x;
+      if(ph[c]!==0){u[c]=0;continue;}
+      const a=x>0?u[c-1]:u[c],b=x<W-1?u[c+1]:u[c],d=y>0?u[c-W]:u[c],e=y<H-1?u[c+W]:u[c];
+      u[c]=0.999*0.25*(a+b+d+e)+0.001;}}}
+    // crescimento da perlita: G de Mehl e Dube, mais lento em austenita pobre em carbono; sub-passos para G·Δt > 0,5 célula
+    const nsub=Math.max(1,Math.ceil(Gc*dt/0.5)),gs=Math.min(1,Gc*dt/nsub),eta=sh*1.5;let m=0;
+    for(let sb=0;sb<nsub;sb++){
+      let f=0,umax=1e-6;m=0;
+      for(let c=0;c<NC;c++){
+        if(ph[c]!==0)continue;let k=0,kk=0;const b=c*8;
+        for(let q=0;q<8;q++){const j=NB[b+q];if(j<0)continue;if(ph[j]===3)tmpN[k++]=gid[j];if(ph[j]!==0)kk++;}
+        if(!k)continue;frC[f]=c;frK[f]=kk;frId[f]=tmpN[(R()*k)|0];f++;if(sh>0&&u[c]>umax)umax=u[c];
+      }
+      for(let i=0;i<f;i++){const c=frC[i],kk=frK[i];
+        const fc=Cg[c]<CE?Math.max(0.12,Math.pow(clamp((Cg[c]-CA)/(CE-CA),0,1),4)):1;
+        let p=sh<=0?gs*Math.min(1,Math.pow(kk/3,-sh)):(kk>=4?gs:Math.min(1,4*gs*Math.pow(u[c]/umax,eta)));
+        if(R()<p*fc){conv[m]=c;convId[m]=frId[i];m++;}}
+      for(let i=0;i<m;i++){const c=conv[i];ph[c]=3;gid[c]=convId[i];born[c]=step;phi[c]=0;Ct[c]=Cg[c];}
+      pearlCells+=m;changes+=m;
+    }
+  }
+
+  // 4) medidas e término
+  let left=0,sphi=0;for(let c=0;c<NC;c++)if(ph[c]===0){left++;sphi+=phi[c];}
+  proFrac=(proCells+sphi)/NC;
+  if(step%2===0)histB.push([tSim,proFrac,pearlCells/NC]);
+  if(P.Tt<A1&&pearlCells>0){const X=pearlCells/Math.max(1,left+pearlCells);if(X>0.08&&X<0.95&&step%5===0)fractal=boxCount();}
+  quiet=changes===0?quiet+1:0;
+  if(P.Tt<A1){
+    if(left<=NC*0.01||quiet>150||step>5000){
+      for(let c=0;c<NC;c++)if(ph[c]===0){let gg=0;for(let q=0;q<8;q++){const j=NB[c*8+q];if(j>=0&&ph[j]===3){gg=gid[j];break;}}
+        ph[c]=3;gid[c]=gg||newGrain();born[c]=step;pearlCells++;phi[c]=0;}
+      proFrac=proCells/NC;histB.push([tSim,proFrac,pearlCells/NC]);finish('done');
+    }
+  }else{
+    if(quiet>40||step>5000||(step>60&&Math.abs(proFrac-(histB[Math.max(0,histB.length-30)]||[0,0])[1])<2e-4&&histB.length>40)){if(QM!=='none')quench();else finish('eq');}
+  }
+}
+const seedOwner=new Int32Array(NC),seedType=new Uint8Array(NC),initC=new Float32Array(NC);let has1=false,has2=false;
+
+let nPart=-1;function countParticles(){if(nPart<0){nPart=0;for(let c=0;c<NC;c++)if(ph[c]===4)nPart++;}return nPart;}
+function newGrain(){ang.push(R()*Math.PI);return nextG++;}
+
+function boxCount(){
+  const mask=new Uint8Array(NC);let pts=0;
+  for(let c=0;c<NC;c++){if(ph[c]===3){for(let q=1;q<8;q+=2){const j=NB[c*8+q];if(j>=0&&ph[j]===0){mask[c]=1;pts++;break;}}}}
+  if(pts<150)return null;const xs=[],ys=[];
+  for(const s of [2,3,4,6,8,12]){const gx=Math.ceil(W/s),gy=Math.ceil(H/s),box=new Uint8Array(gx*gy);let n=0;
+    for(let c=0;c<NC;c++)if(mask[c]){const b=(((c/W)|0)/s|0)*gx+(((c%W)/s)|0);if(!box[b]){box[b]=1;n++;}}
+    xs.push(Math.log(1/s));ys.push(Math.log(n));}
+  return slope(xs,ys);
+}
+function slope(xs,ys){const n=xs.length;let sx=0,sy=0,sxx=0,sxy=0;for(let i=0;i<n;i++){sx+=xs[i];sy+=ys[i];sxx+=xs[i]*xs[i];sxy+=xs[i]*ys[i];}
+  const b=(n*sxy-sx*sy)/(n*sxx-sx*sx);return {b,a:(sy-b*sx)/n};}
+function fitAvrami(){
+  const tot=pearlCells;if(tot<100){fit=null;return;}const xs=[],ys=[];
+  for(const [t,,p] of histB){if(pearlT0<0||t<=pearlT0)continue;const X=p*NC/tot;if(X>0.03&&X<0.97){xs.push(Math.log(t-pearlT0));ys.push(Math.log(-Math.log(1-X)));}}
+  fit=xs.length>5?slope(xs,ys).b:null;
+}
+
+// ---------------- desenho ----------------
+function hsl(h,s,l){const a=s*Math.min(l,1-l),f=n=>{const k=(n+h/30)%12;return Math.round(255*(l-a*Math.max(-1,Math.min(k-3,9-k,1))));};return pack(f(0),f(8),f(4));}
+const hash=i=>((Math.imul(i,2654435761)>>>0)%1000)/1000;
+let pal={};
+function ausColor(v){const k='a'+v;if(pal[k])return pal[k];
+  const c=paletteMode==='or'?hsl(200+hash(v)*60,0.25,0.88+hash(v*7)*0.06):pack(206,212,218);return pal[k]=c;}
+function ferColor(v){const k='f'+v;if(pal[k])return pal[k];
+  const c=paletteMode==='or'?hsl(38+hash(v)*22,0.75,0.72+hash(v*3)*0.12):(()=>{const g=236+Math.round(hash(v)*14);return pack(g,g,g-4);})();return pal[k]=c;}
+function perColors(v){const k='p'+v;if(pal[k])return pal[k];
+  let c;if(paletteMode==='or'){const h=190+hash(v)*120;c=[hsl(h,0.5,0.6),hsl(h,0.55,0.38)];}
+  else{const g=hash(v)*20|0;c=[pack(128+g,134+g,142+g),pack(52,56,64)];}
+  return pal[k]=c;}
+const AUSB=pack(150,160,172),AUSB2=pack(190,198,208),GB=pack(27,33,41),ACC=pack(46,99,200),PT=pack(0,0,0);
+function cemColor(){return paletteMode==='or'?pack(70,45,35):pack(246,246,240);}
+function cmap(v){ // v em [-1,1]: azul (pobre em C) → branco → vermelho (rico em C)
+  v=clamp(v,-1,1);
+  if(v<0){const t=-v;return pack(Math.round(245-200*t),Math.round(247-140*t),Math.round(250-20*t));}
+  const t=v;return pack(Math.round(250-20*t),Math.round(246-190*t),Math.round(243-200*t));
+}
+function cRange(){const lo=Math.min(P.C,ceqNow,pseudo(Math.min(P.Tt,A1-1))[0]),hi=Math.max(P.C,ceqNow);return Math.max(0.05,Math.abs(hi-P.C),Math.abs(P.C-lo));}
+function render(){
+  const lam=clamp(160/Math.max(10,A1-P.Tt),2.2,7),cem=cemColor(),inA=stage==='A',cv2=carbonView&&!inA,span=cRange();
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+    const c=y*W+x,p=ph[c];
+    if(p===4){buf[c]=PT;continue;}
+    if(p===5||p===6){
+      if(cv2){buf[c]=cmap((mC[c]-P.C)/span);continue;}
+      if(p===6){buf[c]=paletteMode==='or'?pack(252,236,242):pack(250,250,246);continue;}
+      const a=pkA[c],lm=lamM(mC[c]);let u=((x*Math.cos(a)+y*Math.sin(a))/lm)%1;if(u<0)u+=1;
+      const r2=NB[c*8+4],d2=NB[c*8+6],pb=(r2>=0&&ph[r2]===5&&Math.abs(pkA[r2]-a)>0.01)||(d2>=0&&ph[d2]===5&&Math.abs(pkA[d2]-a)>0.01);
+      if(paletteMode==='or'){const k=hash(Math.round(a*100));buf[c]=pb?pack(45,95,82):(u<0.18?pack(52,120,104):hsl(160+k*30,0.45,0.5+k*0.15));}
+      else{const k=(a*37|0)%20;buf[c]=pb?pack(70,72,76):(u<0.2?pack(92,94,98):pack(196+k,190+k,178));}
+      continue;}
+    if(p===0){
+      if(cv2){buf[c]=cmap((Cg[c]-P.C)/span);if(phi[c]>0.3)buf[c]=paletteMode==='or'?pack(237,195,122):pack(240,240,236);continue;}
+      const v=aus[c],r=NB[c*8+4],d=NB[c*8+6];
+      if((r>=0&&ph[r]===0&&aus[r]!==v)||(d>=0&&ph[d]===0&&aus[d]!==v)){buf[c]=inA?AUSB:AUSB2;continue;}
+      if(!inA&&phi[c]>0.5){buf[c]=seedType[c]===2?cem:ferColor(seedOwner[c]||1);continue;}
+      buf[c]=ausColor(v);continue;}
+    if(!inA&&step-born[c]<2&&stage==='B'){buf[c]=ACC;continue;}
+    const v=gid[c],r=NB[c*8+4],d=NB[c*8+6];
+    if((r>=0&&ph[r]!==0&&ph[r]!==4&&gid[r]!==v)||(d>=0&&ph[d]!==0&&ph[d]!==4&&gid[d]!==v)){
+      if(!(p===2&&(ph[r]===2||ph[d]===2))){const ff=p===1&&(ph[r]===1||ph[r]===0||r<0)&&(ph[d]===1||ph[d]===0||d<0);
+        buf[c]=ff?(paletteMode==='mi'?pack(165,168,172):pack(196,160,96)):(paletteMode==='mi'&&p!==3&&(ph[r]!==3&&ph[d]!==3)?pack(120,124,130):GB);continue;}}
+    if(p===1){buf[c]=ferColor(v);continue;}
+    if(p===2){buf[c]=cem;continue;}
+    const a=ang[v],sv=Math.sin(2*Math.PI*(x*Math.cos(a)+y*Math.sin(a))/lam),pc=perColors(v);
+    buf[c]=sv>0.35?pc[1]:pc[0];
+  }
+  if(!inA){const yo=profRow*W;for(let x=0;x<W;x+=2)buf[yo+x]=pack(20,24,30);}
+  ctx.putImageData(img,0,0);
+  if(cv2){$('cbar').hidden=false;$('cbLo').textContent=fmt(Math.max(0,P.C-span),2)+' %C';$('cbMid').textContent=fmt(P.C,2)+' %C (C₀)';$('cbHi').textContent=fmt(P.C+span,2)+' %C';}
+  else $('cbar').hidden=true;
+}
+function legend(){
+  const or=paletteMode==='or';
+  const items=[[or?'#E3EBF2':'#CED4DA','Austenita'],[or?'#EDC37A':'#F0F0EC','Ferrita pró-eutetoide'],[or?'#462D23':'#F6F6F0','Cementita pró-eutetoide'],[or?'#5E8FC2':'#4A4F58','Perlita (lamelas ampliadas)'],['#2E63C8','Frente de crescimento'],['#000','Partículas']];
+  if(tQ>=0)items.push([or?'#4FB39A':'#C4BEB2','Martensita (pacotes de ripas/placas)'],[or?'#FCECF2':'#FAFAF6','Austenita retida']);
+  $('legend').innerHTML=items.map(([c,t])=>`<span><b style="background:${c}"></b>${t}</span>`).join('');
+}
+function setPhaseLabel(){
+  const tp=pred&&pred.type===2?'Acm':'A3',pro=pred&&pred.type===2?'cementita':'ferrita';
+  let t;
+  if(stage==='A')t=`Austenitização a ${P.Ta} °C`;
+  else if(stage==='B'&&carbMode)t=`Peça cementada a ${P.Tt} °C · t = ${fmtT(tSim)}`;
+  else if(stage==='B')t=pearlCells>0?`Perlita se formando a ${P.Tt} °C · t = ${fmtT(tSim)}`:(pred.type?`${pro[0].toUpperCase()+pro.slice(1)} pró-eutetoide crescendo por difusão · t = ${fmtT(tSim)}`:`Incubação a ${P.Tt} °C · t = ${fmtT(tSim)}`);
+  else if(stage==='done')t=`Transformação completa em ${fmtT(tSim)}`;
+  else if(stage==='quenched')t=`Temperado até ${QT} °C: ${fmt(martFrac*100)} % martensita + ${fmt(raFrac*100)} % austenita retida`;
+  else if(stage==='eq')t=`Equilíbrio entre A1 e ${tp} a ${P.Tt} °C (t = ${fmtT(tSim)})`;
+  else t=`Acima de ${tp}: austenita estável`;
+  $('phase').textContent=t;
+}
+function fmtT(s){if(s<1)return fmt(s,2)+' s';if(s<100)return fmt(s,1)+' s';if(s<6000)return Math.round(s)+' s';return fmt(s/3600,1)+' h';}
+function stats(){
+  $('sT').textContent=stage==='A'?mcs+' MCS':fmtT(tSim);if(stage==='B')setPhaseLabel();
+  const [n,a]=stage==='A'?countAus():[0,0];
+  const am=stage==='A'?(n?a/n:0):auslast;
+  $('sDg').textContent=am?len(2*Math.sqrt(am*CELL*CELL/Math.PI)):'–';
+  const typ=pred.type;
+  $('sProL').textContent=carbMode?'Fases pró-eutetoides (α + Fe₃C)':typ===2?'Cementita pró-eutetoide':typ===1?'Ferrita pró-eutetoide':'Fase pró-eutetoide';
+  $('sPro').innerHTML=carbMode?`${fmt(proFrac*100)} % <em>perfil cementado</em>`:typ?`${fmt(proFrac*100)} % <em>${pred.regime==='twophase'?'equilíbrio':'máx. em A1'} ${fmt(pred.pro*100)} %</em>`:'– <em>eutetoide</em>';
+  $('sPer').innerHTML=pred.regime==='below'?`${fmt(pearlCells/NC*100)} % <em>mín. ${fmt(pred.pearl*100)} %</em>`:'– <em>acima de A1</em>';
+  $('sF').textContent=fractal?('D ≈ '+fmt(fractal.b,2)):'–';
+  $('sM').innerHTML=tQ>=0?`${fmt(martFrac*100)} % <em>Ms ≈ ${Math.round(MsC(martC||P.C))} °C</em>`:`– <em>Ms ≈ ${Math.round(MsC(P.C))} °C</em>`;
+  $('sRA').innerHTML=tQ>=0?`${fmt(raFrac*100)} % <em>KM a ${QT} °C</em>`:`– <em>${fmt((1-fKM(P.C,QT))*100)} % se toda γ temperar</em>`;
+  $('sH').innerHTML=tQ>=0&&martFrac>0?`${Math.round(martHRC)} HRC <em>martensita com ${fmt(martC,2)} %C</em>`:`– <em>${Math.round(HRC(P.C))} HRC p/ 100 % M</em>`;
+  // Hall-Petch com o tamanho médio dos grãos produto
+  if(nextG>1&&(proCells+pearlCells)>NC*0.5){const d=2*Math.sqrt((proCells+pearlCells)/(nextG-1)*CELL*CELL/Math.PI);
+    $('sY').textContent=Math.round(70+0.74/Math.sqrt(d*1e-6))+' MPa';}else $('sY').textContent='–';
+}
+
+function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+function sizeCanvas(cnv){const dpr=window.devicePixelRatio||1,w=cnv.clientWidth,h=cnv.clientHeight;
+  if(cnv.width!==Math.round(w*dpr)||cnv.height!==Math.round(h*dpr)){cnv.width=Math.round(w*dpr);cnv.height=Math.round(h*dpr);}
+  const g=cnv.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,w,h);g.font='12px "Public Sans",system-ui,sans-serif';return [g,w,h];}
+function axes(g,w,h,xmax,ymax,yfmt,xlab,xfmt){
+  const L=66,Rm=12,T=10,B=36,pw=w-L-Rm,ph2=h-T-B;
+  g.strokeStyle=cssv('--line');g.fillStyle=cssv('--muted');g.lineWidth=1;
+  for(let i=0;i<=4;i++){const y=T+ph2*(1-i/4);g.beginPath();g.moveTo(L,y);g.lineTo(L+pw,y);g.stroke();g.textAlign='right';g.fillText(yfmt(ymax*i/4),L-6,y+4);}
+  for(let i=0;i<=4;i++){const x=L+pw*i/4;g.textAlign=i===0?'left':i===4?'right':'center';g.fillText(xfmt?xfmt(xmax*i/4):Math.round(xmax*i/4),x,h-18);}
+  g.textAlign='center';g.fillText(xlab,L+pw/2,h-2);
+  return {X:v=>L+v/xmax*pw,Y:v=>T+(1-v/ymax)*ph2,L,pw};
+}
+function drawCharts(){
+  drawProfile();
+  {const [g,w,h]=sizeCanvas($('c1'));
+   const xmax=Math.max(1,tSim*1.05),A=axes(g,w,h,xmax,1,v=>Math.round(v*100)+'%','tempo (s)',v=>xmax<10?fmt(v,1):num(Math.round(v)));
+   const pc=cssv('--warm'),qc=cssv('--accent');
+   g.setLineDash([5,4]);g.lineWidth=1.3;
+   if(pred.type&&!carbMode){g.strokeStyle=pc;g.beginPath();g.moveTo(A.L,A.Y(pred.pro));g.lineTo(A.L+A.pw,A.Y(pred.pro));g.stroke();}
+   g.setLineDash([]);g.lineWidth=2.2;
+   if(pred.type||carbMode){g.strokeStyle=pc;g.beginPath();histB.forEach(([t,p],i)=>i?g.lineTo(A.X(t),A.Y(p)):g.moveTo(A.X(t),A.Y(p)));g.stroke();}
+   if(P.Tt<A1){g.strokeStyle=qc;g.beginPath();histB.forEach(([t,,q],i)=>i?g.lineTo(A.X(t),A.Y(q)):g.moveTo(A.X(t),A.Y(q)));g.stroke();}
+   g.font='600 12.5px "Public Sans",system-ui,sans-serif';g.textAlign='left';
+   if(carbMode){g.fillStyle=pc;g.fillText('fases pró-eutetoides',A.L+6,A.Y(Math.min(0.97,proFrac+0.08)));}
+   else if(pred.type){g.fillStyle=pc;g.fillText((pred.type===2?'cementita':'ferrita')+' pró-eutetoide (tracejado: '+(pred.regime==='twophase'?'equilíbrio':'máximo em A1')+')',A.L+6,A.Y(Math.min(0.97,pred.pro+0.06)));}
+   if(tQ>=0){const X0=A.X(tQ);g.strokeStyle='#1E7F6A';g.setLineDash([3,3]);g.lineWidth=1.4;g.beginPath();g.moveTo(X0,A.Y(0));g.lineTo(X0,A.Y(1));g.stroke();g.setLineDash([]);
+     g.fillStyle='#1E7F6A';g.beginPath();g.arc(X0,A.Y(martFrac),5,0,7);g.fill();g.textAlign=X0>A.L+A.pw*0.6?'right':'left';
+     g.fillText('têmpera: '+fmt(martFrac*100)+' % martensita',X0+(g.textAlign==='right'?-8:8),A.Y(Math.min(0.95,martFrac))+(martFrac>0.9?16:-8));g.textAlign='left';}
+   if(P.Tt<A1){g.fillStyle=qc;g.fillText('perlita'+(fit?'  ·  Avrami n ≈ '+fmt(fit,2):''),A.L+6,A.Y(0.9));}
+  }
+  {const [g,w,h]=sizeCanvas($('c2'));
+   const k2=UNITS[UNIT].f**2;const xmax=Math.max(30,totalMCS()*1.02);let ymax=10*k2;for(const p of histA)ymax=Math.max(ymax,p[1]*CELL*CELL*k2*1.15);
+   const A=axes(g,w,h,xmax,ymax,v=>v===0?'0':v>=1e5?sciN(v):num(v),'MCS (tempo de encharque)');
+   g.fillStyle=cssv('--muted');g.textAlign='left';g.fillText('área média ('+UNITS[UNIT].s+'²)',56,24);
+   g.strokeStyle=cssv('--warm');g.lineWidth=2.2;g.beginPath();histA.forEach(([t,a],i)=>{const y=a*CELL*CELL*k2;i?g.lineTo(A.X(t),A.Y(y)):g.moveTo(A.X(t),A.Y(y));});g.stroke();
+  }
+}
+
+// ---------------- diagrama interativo ----------------
+const DG=$('dg');let dgMode='full';let dgMap=null;
+const VIEWS={full:{c0:0,c1:6.70,t0:400,t1:1600},zoom:{c0:0,c1:1.7,t0:0,t1:1150}};
+function drawDiagram(){
+  const DX=VIEWS[dgMode],full=dgMode==='full';
+  const [g,w,h]=sizeCanvas(DG);
+  const L=46,Rm=14,T=10,B=full?52:(layerSteel?96:34),pw=w-L-Rm,ph2=h-T-B;
+  const X=c=>L+(c-DX.c0)/(DX.c1-DX.c0)*pw,Y=t=>T+(DX.t1-t)/(DX.t1-DX.t0)*ph2;
+  dgMap={X,Y,pb:T+ph2,full,inv:(px,py)=>[DX.c0+(px-L)/pw*(DX.c1-DX.c0),DX.t1-(py-T)/ph2*(DX.t1-DX.t0)]};
+  const ink=cssv('--dg-line'),mut=cssv('--muted'),line=cssv('--line'),red=cssv('--dg-red');
+  // fundo: aços × ferros fundidos
+  g.fillStyle=cssv('--dg-steel');g.fillRect(L,T,Math.min(pw,X(2.14)-L),ph2);
+  if(X(2.14)<L+pw){g.fillStyle=cssv('--dg-cast');g.fillRect(X(2.14),T,L+pw-X(2.14),ph2);}
+  // faixa fora do modelo
+  g.fillStyle=cssv('--dg-shade');g.globalAlpha=.75;
+  if(full)g.fillRect(L,Y(560),X(Math.min(1.6,DX.c1))-L,Y(DX.t0)-Y(560));
+  else{g.beginPath();g.moveTo(X(0),Y(560));g.lineTo(X(1.6),Y(560));for(let c=1.6;c>=-1e-9;c-=0.02)g.lineTo(X(c),Y(MsC(c)));g.closePath();g.fill();}
+  if(full)g.fillRect(X(1.6),T,X(2.14)-X(1.6),ph2);
+  g.globalAlpha=1;
+  g.save();g.beginPath();g.rect(L,T,pw,ph2);g.clip();
+  // grade
+  g.strokeStyle=line;g.lineWidth=1;g.globalAlpha=.6;
+  const tstep=full?200:100;for(let t=Math.ceil(DX.t0/tstep)*tstep;t<=DX.t1;t+=tstep){g.beginPath();g.moveTo(L,Y(t));g.lineTo(L+pw,Y(t));g.stroke();}
+  g.globalAlpha=1;
+  // linhas de referência verticais (finas)
+  g.strokeStyle=ink;g.lineWidth=1;
+  for(const [c,t] of [[CA,A1],[CE,A1],[4.30,1147]]){g.beginPath();g.moveTo(X(c),Y(t));g.lineTo(X(c),Y(DX.t0));g.stroke();}
+  // linhas de fase
+  g.strokeStyle=red;g.lineWidth=2.2;g.lineJoin='round';
+  const pl=pts=>{g.beginPath();pts.forEach(([c,t],i)=>i?g.lineTo(X(c),Y(t)):g.moveTo(X(c),Y(t)));g.stroke();};
+  pl([[0,1538],[0.53,1493],[4.30,1147]]);                         // liquidus
+  pl([[0,1538],[0.09,1493]]);                                       // solidus δ
+  pl([[0.09,1493],[0.53,1493]]);                                    // peritética
+  pl([[0,1394],[0.09,1493]]);pl([[0,1394],[0.17,1493]]);            // δ / γ
+  pl([[0.17,1493],[2.14,1147]]);                                    // solidus γ
+  pl([[2.14,1147],[6.70,1147]]);                                    // eutética
+  pl([[CE,A1],[2.14,1147]]);                                        // Acm
+  pl(A3T);                                                          // A3
+  pl([[CA,A1],[6.70,A1]]);                                          // A1 (eutetoide)
+  pl([[0,912],[CA,A1],[0.006,DX.t0]]);                              // solvus α
+  pl([[6.70,DX.t0],[6.70,1252]]);                                   // cementita
+  g.setLineDash([7,5]);pl([[4.30,1147],[5.2,1195],[6.0,1232],[6.70,1252]]);g.setLineDash([]);
+  // extrapolações abaixo de A1
+  g.setLineDash([4,4]);g.lineWidth=1.2;g.strokeStyle=mut;
+  pl([[CE,A1],[CE+(A1-560)/300,560]]);pl([[CE,A1],[CE-(A1-560)/304.3,560]]);g.setLineDash([]);
+  if(!full){
+    const ml=(dT,dash,wd)=>{g.strokeStyle='#1E7F6A';g.lineWidth=wd;g.setLineDash(dash);g.beginPath();for(let c=0;c<=1.6001;c+=0.02){const t=MsC(c)-dT;c===0?g.moveTo(X(c),Y(t)):g.lineTo(X(c),Y(t));}g.stroke();g.setLineDash([]);};
+    ml(0,[],2.2);ml(Math.log(2)/KM,[6,4],1.4);ml(Math.log(10)/KM,[2,3],1.4);
+  }
+  // linha de amarração em Tt
+  const pr=predict(P.C,P.Tt);
+  if(pr.regime!=='stable'){
+    let ca,cb;
+    if(pr.regime==='twophase'){if(pr.type===1){ca=Calpha(P.Tt);cb=CgA3(P.Tt);}else{ca=CgAcm(P.Tt);cb=CCM;}}
+    else{ca=CA;cb=CCM;}
+    g.strokeStyle=cssv('--accent');g.lineWidth=1.6;g.setLineDash([2,3]);pl([[ca,P.Tt],[cb,P.Tt]]);g.setLineDash([]);
+    if(cb>DX.c1){g.fillStyle=cssv('--accent');g.textAlign='right';g.font='12px "Public Sans",system-ui,sans-serif';g.fillText('→ 6,70',L+pw-3,Y(P.Tt)-5);}
+  }
+  g.restore();
+  drawLayers(g,X,Y,DX,L,T,pw,ph2,h,full);
+  // rótulos de regiões
+  const lab=(t,c,T2,sz=14,it=true,col=ink,al='center')=>{if(c<DX.c0||c>DX.c1||T2<DX.t0||T2>DX.t1)return;
+    g.font=(it?'italic ':'')+sz+'px "Newsreader",Georgia,serif';g.fillStyle=col;g.textAlign=al;g.fillText(t,X(c),Y(T2));};
+  const num=(t,c,T2,al='left',dx=4,dy=-5)=>{if(c<DX.c0||c>DX.c1||T2<DX.t0||T2>DX.t1)return;
+    g.font='600 11.5px "Public Sans",system-ui,sans-serif';g.fillStyle=ink;g.textAlign=al;g.fillText(t,X(c)+dx,Y(T2)+dy);};
+  if(full){
+    lab('Líquido',4.6,1420,17);lab('γ + Líquido',1.7,1250);lab('Líquido + Cementita',5.6,1175,13);
+    lab('γ, austenita',0.95,1030,15);lab('γ + Cementita',3.7,960,15);lab('α + Cementita',3.7,600,15);
+    lab('α + γ',0.33,760,12);lab('δ',0.04,1440,12,true,ink,'left');lab('Cementita (Fe₃C)',5.7,520,13);
+    num('1538 °C',0,1538,'left',4,-5);num('1493 °C',0.53,1493,'left',6,-4);num('1394 °C',0,1394,'left',4,14);
+    num('1147 °C',3.0,1147,'center',0,-6);num('912 °C',0,912,'left',4,-6);num('727 °C',4.6,A1,'center',0,-6);
+    num('2,14',2.14,1147,'left',6,16);num('4,30',4.30,1147,'left',5,16);num('0,76',CE,A1,'left',5,15);num('0,022',CA,425,'left',5,0);
+    g.font='600 12px "Public Sans",system-ui,sans-serif';g.fillStyle=mut;g.textAlign='center';
+    g.fillText('AÇOS',X(1.07),h-4);g.fillText('FERROS FUNDIDOS',X(4.42),h-4);
+  }else{
+    lab('γ (austenita)',0.55,1000,15);lab('α + γ',0.22,765,13);lab('γ + Fe₃C',1.35,800,15);lab('α + Fe₃C',1.3,640,15);
+    num('A1 727 °C',1.22,A1,'left',0,-6);num('A3',0.13,TA3(0.13),'left',4,-4);num('Acm',1.32,TAcm(1.32),'left',4,-4);num('0,76',CE,A1,'left',4,15);
+    g.font='12px "Public Sans",system-ui,sans-serif';g.fillStyle=mut;g.textAlign='center';g.fillText('pseudoeutetoide',X(0.62),Y(600));
+    g.font='600 11.5px "Public Sans",system-ui,sans-serif';g.fillStyle='#1E7F6A';g.textAlign='left';
+    g.fillText('Ms',X(1.42)+4,Y(MsC(1.42))-4);g.fillText('M50',X(1.25)+4,Y(MsC(1.25)-63)-4);g.fillText('M90',X(1.02)+4,Y(MsC(1.02)-209)-4);
+    g.font='italic 14px "Newsreader",Georgia,serif';g.fillText('martensita (têmpera)',X(1.0),Y(330));
+    g.font='11.5px "Public Sans",system-ui,sans-serif';g.fillStyle=mut;g.fillText('bainita (fora do modelo)',X(0.03),Y(530));
+  }
+  g.font='11.5px "Public Sans",system-ui,sans-serif';g.fillStyle=mut;g.textAlign='left';
+  if(full)g.fillText(pw<360?'< 560 °C: fora do modelo':'< 560 °C: bainita, fora do modelo',X(0.02)+38,Y(510));
+  if(full&&pw>300){g.textAlign='center';g.fillText('fora do',X(1.87),Y(940));g.fillText('modelo',X(1.87),Y(940)+13);}
+  // eixos
+  g.strokeStyle=ink;g.lineWidth=1.2;g.strokeRect(L,T,pw,ph2);
+  g.fillStyle=mut;g.font='12px "Public Sans",system-ui,sans-serif';
+  for(let t=Math.ceil(DX.t0/tstep)*tstep;t<=DX.t1;t+=tstep){g.textAlign='right';g.fillText(t,L-6,Y(t)+4);}
+  const cticks=full?(pw<420?[0,1,2,3,4,5,6.70]:[0,1,2,3,4,5,6,6.70]):[0,0.4,0.8,1.2,1.6];
+  for(const c of cticks){g.textAlign=c===6.70?'right':'center';g.fillText(c===6.70?'6,70':fmt(c,full?0:1),X(c)+(c===6.70?4:0),T+ph2+15);}
+  g.textAlign='center';g.fillText('Composição (% C em massa)',L+pw/2,T+ph2+(full?30:(layerSteel?90:30)));
+  g.save();g.translate(12,T+ph2/2);g.rotate(-Math.PI/2);g.fillText('Temperatura (°C)',0,0);g.restore();
+  if(carbMode&&CARB.Cs>P.C){g.strokeStyle='#C8322B';g.lineWidth=5;g.globalAlpha=.55;g.beginPath();g.moveTo(X(P.C),Y(P.Ta));g.lineTo(X(Math.min(CARB.Cs,DX.c1)),Y(P.Ta));g.stroke();
+    g.beginPath();g.moveTo(X(P.C),Y(P.Tt));g.lineTo(X(Math.min(CARB.Cs,DX.c1)),Y(P.Tt));g.stroke();g.globalAlpha=1;
+  }
+  // trajetória e marcadores
+  g.strokeStyle=ink;g.lineWidth=1.6;g.beginPath();g.moveTo(X(P.C),Y(P.Ta));g.lineTo(X(P.C),Y(P.Tt)-9);g.stroke();
+  g.fillStyle=ink;g.beginPath();g.moveTo(X(P.C),Y(P.Tt)-3);g.lineTo(X(P.C)-5,Y(P.Tt)-11);g.lineTo(X(P.C)+5,Y(P.Tt)-11);g.fill();
+  if(QM!=='none'){const t0=QM==='direct'?P.Ta:P.Tt,tq=Math.max(QT,DX.t0+4),xq=X(P.C)+(QM==='direct'?0:10);
+    g.strokeStyle='#1E7F6A';g.lineWidth=2.4;g.setLineDash([5,3]);g.beginPath();g.moveTo(xq,Y(t0));g.lineTo(xq,Y(tq)-8);g.stroke();g.setLineDash([]);
+    g.fillStyle='#1E7F6A';g.beginPath();g.moveTo(xq,Y(tq)-1);g.lineTo(xq-5,Y(tq)-10);g.lineTo(xq+5,Y(tq)-10);g.fill();
+    if(!full){g.font='600 11.5px "Public Sans",system-ui,sans-serif';g.textAlign='left';g.fillText('têmpera até '+QT+' °C'+(QM==='hold'?' (após '+fmtT(holdS)+')':''),xq+7,Y(tq)-12);}}
+  marker(g,X(P.C),Y(P.Ta),cssv('--warm'),'austenitização');
+  marker(g,X(P.C),Y(P.Tt),cssv('--accent'),'transformação');
+}
+function marker(g,x,y,c,t){g.fillStyle=c;g.strokeStyle='#fff';g.lineWidth=2;g.beginPath();g.arc(x,y,8,0,7);g.fill();g.stroke();
+  g.font='600 12px "Public Sans",system-ui,sans-serif';g.textAlign=x>DG.clientWidth*0.7?'right':'left';g.fillStyle=c;g.fillText(t,x+(g.textAlign==='right'?-13:13),y+4);}
+
+let drag=null;
+DG.addEventListener('pointerdown',e=>{if(!dgMap)return;const r=DG.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;
+  if(layerSteel&&!dgMap.full&&py>dgMap.pb+20){let best=null,bd=14;for(const s of STEELS){const d=Math.abs(dgMap.X(nom(s))-px);if(d<bd){bd=d;best=s;}}if(best)pickSteel(nom(best));return;}
+  const da=Math.hypot(px-dgMap.X(P.C),py-dgMap.Y(P.Ta)),dt=Math.hypot(px-dgMap.X(P.C),py-dgMap.Y(P.Tt));
+  drag=da<dt?'Ta':'Tt';DG.setPointerCapture(e.pointerId);DG.classList.add('drag');move(px,py);});
+DG.addEventListener('pointermove',e=>{if(!drag)return;const r=DG.getBoundingClientRect();move(e.clientX-r.left,e.clientY-r.top);});
+DG.addEventListener('pointerup',()=>{if(!drag)return;drag=null;DG.classList.remove('drag');restart();});
+function move(px,py){const [c,t]=dgMap.inv(px,py);$('C').value=clamp(c,0.05,1.6).toFixed(2);$(drag).value=clamp(Math.round(t/5)*5,drag==='Ta'?750:560,drag==='Ta'?1100:900);syncParams(drag);}
+DG.addEventListener('keydown',e=>{const k=e.key;let ch=true;
+  if(k==='ArrowLeft')$('C').value=(+$('C').value-0.01).toFixed(2);else if(k==='ArrowRight')$('C').value=(+$('C').value+0.01).toFixed(2);
+  else if(k==='ArrowUp')$('Tt').value=+$('Tt').value+5;else if(k==='ArrowDown')$('Tt').value=+$('Tt').value-5;else ch=false;
+  if(ch){e.preventDefault();syncParams('Tt');restart();}});
+
+function drawProfile(){
+  const [g,w,h]=sizeCanvas($('c3'));
+  const type=pred.type,[lo,hi]=pseudo(Math.min(P.Tt,A1-0.5));
+  let ymax=Math.max(P.C,ceqNow,P.Tt<A1?hi:0,carbMode?CARB.Cs:0)*1.15+0.05;ymax=Math.min(ymax,1.8);
+  const fmm=UNITS[UNIT].f,xmax=W*CELL*fmm;
+  const A=axes(g,w,h,xmax,ymax,v=>fmt(v,2),(carbMode?'distância da superfície (':'posição ao longo da linha (')+UNITS[UNIT].s+')',v=>v>=1e5?sciN(v):num(Math.round(v)));
+  if(P.Tt<A1&&stage!=='A'){g.fillStyle=cssv('--accent');g.globalAlpha=.08;g.fillRect(A.L,A.Y(Math.min(hi,ymax)),A.pw,A.Y(Math.max(lo,0))-A.Y(Math.min(hi,ymax)));g.globalAlpha=1;}
+  const hl=(v,col,t,dash)=>{if(v>ymax)return;g.strokeStyle=col;g.lineWidth=1.2;g.setLineDash(dash);g.beginPath();g.moveTo(A.L,A.Y(v));g.lineTo(A.L+A.pw,A.Y(v));g.stroke();g.setLineDash([]);
+    g.fillStyle=col;g.font='12px "Public Sans",system-ui,sans-serif';g.textAlign='right';g.fillText(t,A.L+A.pw-4,A.Y(v)-4);};
+  hl(P.C,cssv('--muted'),'C₀ = '+fmt(P.C,2)+' %',[5,4]);
+  if(type&&stage!=='A'&&!carbMode)hl(ceqNow,cssv('--warm'),'γ na interface ('+(type===2?'Acm':'A3')+'): '+fmt(ceqNow,2)+' %',[2,3]);
+  if(carbMode){g.strokeStyle='#C8322B';g.globalAlpha=.6;g.setLineDash([6,4]);g.lineWidth=1.6;g.beginPath();
+    for(let i=0;i<=120;i++){const xc=W*CELL*1e-4*i/120,v=carbC(xc);const X=A.X(xc*1e4*fmm),Y=A.Y(Math.min(v,ymax));i?g.lineTo(X,Y):g.moveTo(X,Y);}g.stroke();g.setLineDash([]);g.globalAlpha=1;
+    g.fillStyle='#C8322B';g.textAlign='left';g.fillText('perfil da cementação (erf), tracejado',A.L+6,A.Y(Math.min(CARB.Cs,ymax))+14);}
+  if(stage==='A'){g.fillStyle=cssv('--muted');g.textAlign='center';g.fillText(carbMode?'O perfil tracejado é aplicado ao fim da austenitização.':'Durante a austenitização o carbono está homogêneo.',A.L+A.pw/2,A.Y(ymax*0.45));return;}
+  const colOf=pp=>pp===0||pp===6?'#C8322B':pp===1?cssv('--warm'):pp===3?cssv('--accent'):pp===5?'#1E7F6A':cssv('--ink');
+  const yo=profRow*W;let prev=null;
+  g.lineWidth=2;
+  for(let x=0;x<W;x++){const c=yo+x,pp=ph[c];if(pp===4){prev=null;continue;}
+    const v=pp===0?Cg[c]:pp===1?CA:pp===2?Math.min(ymax,CCM):(pp===5||pp===6)?mC[c]:Math.min(ymax,Ct[c]);
+    const X=A.X((x+.5)*CELL*fmm),Y=A.Y(Math.min(v,ymax));
+    if(prev&&prev.p===pp){g.strokeStyle=colOf(pp);g.beginPath();g.moveTo(prev.X,prev.Y);g.lineTo(X,Y);g.stroke();}
+    prev={X,Y,p:pp};}
+}
+function syncParams(src){
+  P.C=+$('C').value;
+  let ta=+$('Ta').value,tt=+$('Tt').value;
+  const minTa=Math.ceil((upper(P.C)+15)/5)*5;
+  if(ta<minTa){ta=minTa;$('Ta').value=ta;}
+  P.Ta=ta;P.Tt=tt;
+  $('CO').textContent=fmt(P.C,2)+' %';$('TaO').textContent=P.Ta+' °C';$('TtO').textContent=P.Tt+' °C';
+  pred=predict(P.C,P.Tt);verdict();drawDiagram();updateAtom();if(typeof updateCarb==='function'&&$('kCs'))updateCarb();if(typeof steelTable==='function'&&$('steelTab')&&src!=='init')steelTable();
+}
+function verdict(){
+  const C=P.C,pr=pred,cls=C<CE-0.015?'hipoeutetoide':C>CE+0.015?'hipereutetoide':'eutetoide';
+  const up=Math.round(upper(C));let s=`<b>Aço ${cls} com ${fmt(C,2)} %C.</b> `;
+  if(pr.type===1)s+=`A3 ≈ ${up} °C. `;else if(pr.type===2)s+=`Acm ≈ ${up} °C. `;
+  if(pr.regime==='stable')s+=`A ${P.Tt} °C o aço continua austenítico: escolha uma temperatura abaixo de ${pr.type===2?'Acm':'A3'}.`;
+  else if(pr.regime==='twophase')s+=`A ${P.Tt} °C (entre A1 e ${pr.type===2?'Acm':'A3'}) forma-se só ${pr.type===2?'cementita':'ferrita'} pró-eutetoide até o equilíbrio: <b>${fmt(pr.pro*100)} %</b>. O restante continua austenita.`;
+  else{
+    if(pr.type)s+=`Pela alavanca em A1, no máximo <b>${fmt(pr.eq*100)} % de ${pr.type===2?'cementita':'ferrita'} pró-eutetoide</b>. A ${P.Tt} °C a quantidade real sai da cinética: o carbono ${pr.type===2?'consumido pela cementita':'rejeitado pela ferrita'} precisa difundir (D = ${sciN(DC(P.Tt))} cm²/s), e a perlita começa onde a austenita entra na janela pseudoeutetoide. `;
+    else s+=`A ${P.Tt} °C: <b>100 % de perlita</b>. `;
+    s+=`Na perlita, 89 % ferrita e 11 % cementita. Ferrita total no aço: <b>${fmt((CCM-C)/(CCM-CA)*100)} %</b>.`;
+  }
+  s+=` Austenitização a ${P.Ta} °C: mobilidade ${fmt(mobility(),2)}× a de 860 °C.`;
+  if(QM!=='none'){const ms=MsC(C),ra=(1-fKM(C,QT))*100;
+    s+=` <b>Têmpera:</b> com ${fmt(C,2)} %C, Ms ≈ ${Math.round(ms)} °C, M50 ≈ ${Math.round(ms-63)} °C e M90 ≈ ${Math.round(ms-209)} °C. Se toda a austenita chegar a ${QT} °C, Koistinen–Marburger prevê ${fmt(100-ra)} % de martensita e ${fmt(ra)} % de austenita retida`+(QM==='hold'?`, mas antes ela espera ${fmtT(holdS)} em ${P.Tt} °C e parte pode se transformar em ferrita ou perlita.`:'.');}
+  if(carbMode)s+=` <b>Modo cementado:</b> a superfície começa com ${fmt(CARB.Cs,2)} %C e o teor cai até ${fmt(P.C,2)} %C conforme a função erro (veja o quadro de cementação).`;
+  $('verdict').innerHTML=s;
+}
+
+// ---------------- unidades e escala atômica ----------------
+let UNIT='um';
+const UNITS={um:{f:1,s:'µm'},nm:{f:1e3,s:'nm'},A:{f:1e4,s:'Å'}};
+function num(v,d=0){return v.toLocaleString('pt-BR',{maximumFractionDigits:d,minimumFractionDigits:0});}
+function sup(e){const m={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};return String(e).split('').map(c=>m[c]).join('');}
+function len(um,unit=UNIT){if(unit!=='A'&&um*UNITS[unit].f<0.01&&um>0)unit='A';const U=UNITS[unit],v=um*U.f;return (v>=1e7?sciN(v):num(v,v<10?2:v<100?1:0))+' '+U.s;}
+function sciN(v){const e=Math.floor(Math.log10(v)),m=v/Math.pow(10,e);return fmt(m,1)+'×10'+sup(e);}
+function aGamma(C){return 3.555+0.044*C;}            // Å, extrapolado à ambiente
+const aAlpha=2.866;
+function lamellar(T){const dT=A1-T;return dT>2?8.02/dT:null;}   // µm (aprox. empírica para o eutetoide)
+function tD(){return stage!=='A'&&tSim>0?tSim:100;}
+function updateAtom(){
+  const C=P.C,ag=aGamma(C),S=lamellar(P.Tt),cellUm=CELL;
+  const rungs=[
+    ['Célula da simulação',len(cellUm),UNIT==='A'?'= '+len(cellUm,'um'):'= '+len(cellUm,'A')],
+    ['Grão austenítico',$('sDg').textContent,'diâmetro médio atual'],
+    ['Espaçamento interlamelar da perlita',S?len(S):'–',S?`a ${P.Tt} °C (S ≈ 8,02/ΔT µm)`:'só abaixo de A1'],
+    ['Parâmetro de rede da austenita',len(ag/1e4,'A'),`a = 3,555 + 0,044·%C Å`],
+    ['Difusividade do C na austenita',sciN(DC(P.Tt))+' cm²/s',`a ${P.Tt} °C: D = 0,12·exp(−32000/RT)`],
+    ['Distância de difusão do C, √(D·t)',len(Math.sqrt(DC(P.Tt)*tD())*1e4),`em t = ${fmtT(tD())}`],
+    ['Distância de difusão do Mn, √(D·t)',len(Math.sqrt(DMn(P.Tt)*tD())*1e4),`D ≈ ${sciN(DMn(P.Tt))} cm²/s (Q ≈ 63 kcal/mol)`]
+  ];
+  $('ladder').innerHTML=rungs.map(r=>`<div class="rung"><span>${r[0]}</span><strong>${r[1]}</strong><em>${r[2]}</em></div>`).join('');
+  $('aGcap').textContent=`a ≈ ${fmt(ag,3)} Å com ${fmt(C,2)} %C · vetor de Burgers a/√2 ≈ ${fmt(ag/Math.SQRT2,2)} Å · sítio octaédrico ≈ 0,52 Å`;
+  $('aAcap').textContent=`a = 2,866 Å · vetor de Burgers a√3/2 ≈ ${fmt(aAlpha*Math.sqrt(3)/2,2)} Å · sítio octaédrico ≈ 0,19 Å`;
+  drawCell($('aG'),ag,1.27,'cfc');drawCell($('aA'),aAlpha,1.24,'ccc');
+}
+function drawCell(cnv,a,R,kind){
+  const [g,w,h]=sizeCanvas(cnv);
+  const tot=aGamma(1.6)+2*1.27; // mesma escala nos dois desenhos
+  const s=Math.min((w-20)/tot,(h-64)/tot),ox=(w-a*s)/2,oy=R*s+10+((h-64)-tot*s)/2;
+  const P2=(x,y)=>[ox+x*s,oy+y*s];
+  g.strokeStyle=cssv('--muted');g.lineWidth=1;g.setLineDash([4,3]);g.strokeRect(ox,oy,a*s,a*s);g.setLineDash([]);
+  const atom=(x,y,dash)=>{const [px,py]=P2(x,y);g.beginPath();g.arc(px,py,R*s,0,7);
+    if(dash){g.setLineDash([3,3]);g.strokeStyle=cssv('--muted');g.lineWidth=1.2;g.stroke();g.setLineDash([]);}
+    else{g.fillStyle='rgba(120,132,148,.55)';g.fill();g.strokeStyle='rgba(60,70,84,.9)';g.lineWidth=1.2;g.stroke();}};
+  for(const [x,y] of [[0,0],[a,0],[0,a],[a,a]])atom(x,y);
+  if(kind==='cfc')atom(a/2,a/2);else atom(a/2,a/2,true);
+  const hole=a/2-R,[hx,hy]=P2(a/2,a);
+  g.beginPath();g.arc(hx,hy,Math.max(hole,0.02)*s,0,7);g.fillStyle='rgba(46,160,90,.8)';g.fill();
+  g.beginPath();g.arc(hx,hy,0.77*s,0,7);g.setLineDash([4,3]);g.strokeStyle='#C8322B';g.lineWidth=1.6;g.stroke();g.setLineDash([]);
+  if(kind==='ccc'){g.font='11px "Public Sans",system-ui,sans-serif';g.textAlign='center';g.fillStyle=cssv('--muted');const [cx,cy]=P2(a/2,a/2);g.fillText('átomo central',cx,cy-4);g.fillText('(z = a/2)',cx,cy+10);}
+  // cota do parâmetro de rede, abaixo da célula
+  const yd=oy+a*s+R*s+12,x0=ox,x1=ox+a*s;
+  g.strokeStyle=cssv('--ink');g.fillStyle=cssv('--ink');g.lineWidth=1;
+  g.beginPath();g.moveTo(x0,yd);g.lineTo(x1,yd);g.stroke();
+  for(const x of [x0,x1]){g.beginPath();g.moveTo(x,yd-4);g.lineTo(x,yd+4);g.stroke();}
+  g.font='600 12px "Public Sans",system-ui,sans-serif';g.textAlign='center';g.fillText('a = '+fmt(a,3)+' Å',(x0+x1)/2,yd+16);
+  g.fillRect(10,h-14,s,3);g.font='12px "Public Sans",system-ui,sans-serif';g.textAlign='left';g.fillText('1 Å',14+s,h-9);
+  g.fillStyle='#2E9A57';g.textAlign='right';g.fillText('espaço livre: '+fmt(Math.max(a/2-R,0),2)+' Å',w-10,h-9);
+}
+
+// ---------------- cementação: solução da 2ª lei de Fick pela função erro ----------------
+const ERF=[[0,0],[0.025,0.0282],[0.05,0.0564],[0.10,0.1125],[0.15,0.1680],[0.20,0.2227],[0.25,0.2763],[0.30,0.3286],[0.35,0.3794],
+ [0.40,0.4284],[0.45,0.4755],[0.50,0.5205],[0.55,0.5633],[0.60,0.6039],[0.65,0.6420],[0.70,0.6778],[0.75,0.7112],[0.80,0.7421],
+ [0.85,0.7707],[0.90,0.7970],[0.95,0.8209],[1.0,0.8427],[1.1,0.8802],[1.2,0.9103],[1.3,0.9340],[1.4,0.9523],[1.5,0.9661],
+ [1.6,0.9763],[1.7,0.9838],[1.8,0.9891],[1.9,0.9928],[2.0,0.9953],[2.2,0.9981],[2.4,0.9993],[2.6,0.9998],[2.8,0.9999]];
+function erfx(z){const s=z<0?-1:1;z=Math.abs(z);const t=1/(1+0.3275911*z);
+  return s*(1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-z*z));}
+function erfTable(z){ // interpolação linear na tabela
+  if(z>=2.8)return {v:1,i:ERF.length-1,j:ERF.length-1};
+  for(let i=0;i<ERF.length-1;i++){const a=ERF[i],b=ERF[i+1];if(z>=a[0]&&z<=b[0])return {v:a[1]+(z-a[0])/(b[0]-a[0])*(b[1]-a[1]),i,j:i+1};}
+  return {v:0,i:0,j:0};
+}
+function erfInvTable(e){ // z tal que erf(z) = e, por interpolação na tabela
+  if(e>=0.9999)return {z:2.8,i:ERF.length-1,j:ERF.length-1};
+  for(let i=0;i<ERF.length-1;i++){const a=ERF[i],b=ERF[i+1];if(e>=a[1]&&e<=b[1])return {z:a[0]+(e-a[1])/(b[1]-a[1])*(b[0]-a[0]),i,j:i+1};}
+  return {z:0,i:0,j:0};
+}
+const RJ=8.314;
+const DROWS=[ // espécie, meio, D0 (m²/s), Q (kJ/mol), fonte
+  ['C','Fe-γ',1.2e-5,133.9,'Aula 3 (0,12 cm²/s; 32 000 cal/mol)','aula'],
+  ['C','Fe-γ',2.3e-5,148,'Callister','cal'],
+  ['C','Fe-α',1.1e-6,87,'Callister',''],
+  ['Fe','Fe-γ',5.0e-5,284,'Callister',''],
+  ['Fe','Fe-α',2.8e-4,251,'Callister',''],
+  ['Mn','Fe-γ',1.78e-5,264,'literatura (aprox.)','']];
+const CARB={Cs:1.0,Tc:925,th:2,src:'aula',Ce:0.4,xq:0.5,Cxq:0.8};
+let carbMode=false;
+function Dcarb(T=CARB.Tc){const r=DROWS.find(d=>d[5]===CARB.src);return r[2]*1e4*Math.exp(-r[3]*1e3/(RJ*(T+273.15)));} // cm²/s
+function carbC(xcm){const D=Dcarb(),t=CARB.th*3600;return CARB.Cs-(CARB.Cs-P.C)*erfx(xcm/(2*Math.sqrt(D*t)));}
+function readCarb(){
+  CARB.Cs=+$('kCs').value;CARB.Tc=+$('kT').value;CARB.th=+$('kt').value;CARB.Ce=+$('kCe').value;CARB.xq=+$('kx').value;CARB.Cxq=+$('kCx').value;
+  $('kCsO').textContent=fmt(CARB.Cs,2)+' %C';$('kTO').textContent=CARB.Tc+' °C';$('ktO').textContent=fmt(CARB.th,2).replace(/,00$/,'')+' h';
+  $('kCeO').textContent=fmt(CARB.Ce,2)+' %C';$('kxO').textContent=fmt(CARB.xq,2)+' mm';$('kCxO').textContent=fmt(CARB.Cxq,2)+' %C';
+}
+function updateCarb(){
+  readCarb();
+  const C0=P.C,Cs=CARB.Cs,D=Dcarb(),t=CARB.th*3600,sq=Math.sqrt(D*t),Tk=CARB.Tc+273.15,row=DROWS.find(d=>d[5]===CARB.src);
+  let h='';
+  h+=`<p><b>1. Difusividade.</b> <span class="eqn">D = D₀·exp(−Q/RT)</span> = ${sciN(row[2])} m²/s · exp(−${num(row[3]*1000)} / (8,314 × ${num(Tk,2)})) = <b>${sciN(D)} cm²/s</b> = ${sciN(D*1e-4)} m²/s.</p>`;
+  h+=`<p><b>2. Distância característica.</b> √(D·t) = √(${sciN(D)} × ${num(t)} s) = <b>${len(sq*1e4)}</b>.</p>`;
+  if(Cs<=C0+0.02){h+=`<p>C<sub>s</sub> precisa ser maior que C₀ = ${fmt(C0,2)} %C para haver cementação. Diminua o teor no diagrama ou aumente C<sub>s</sub>.</p>`;$('kSteps').innerHTML=h;fillTables(-1,-1,-1,-1);drawCarb(null);return;}
+  // profundidade de camada
+  let caseX=null,ci=-1,cj=-1,ce='';
+  if(CARB.Ce>C0&&CARB.Ce<Cs){
+    const ratio=(CARB.Ce-C0)/(Cs-C0),e=1-ratio,inv=erfInvTable(e);ci=inv.i;cj=inv.j;caseX=2*inv.z*sq;
+    ce=`<p><b>3. Profundidade de camada (C = ${fmt(CARB.Ce,2)} %C).</b> (C<sub>x</sub> − C₀)/(C<sub>s</sub> − C₀) = 1 − erf(z) → erf(z) = 1 − (${fmt(CARB.Ce,2)} − ${fmt(C0,2)})/(${fmt(Cs,2)} − ${fmt(C0,2)}) = <b>${fmt(e,4)}</b>. Na tabela, entre z = ${fmt(ERF[inv.i][0],3)} (${fmt(ERF[inv.i][1],4)}) e z = ${fmt(ERF[inv.j][0],3)} (${fmt(ERF[inv.j][1],4)}), interpolando: <b>z ≈ ${fmt(inv.z,3)}</b>. Logo x = 2·z·√(D·t) = <b>${len(caseX*1e4)}</b>.</p>`;
+  }else ce=`<p><b>3. Profundidade de camada.</b> O teor ${fmt(CARB.Ce,2)} %C precisa estar entre C₀ e C<sub>s</sub>.</p>`;
+  h+=ce;
+  // problema inverso: tempo
+  let qi=-1,qj=-1;
+  if(CARB.Cxq>C0&&CARB.Cxq<Cs){
+    const e=(Cs-CARB.Cxq)/(Cs-C0),inv=erfInvTable(e);qi=inv.i;qj=inv.j;const xcm=CARB.xq/10,tq=xcm*xcm/(4*inv.z*inv.z*D);
+    h+=`<p><b>4. Tempo para ter ${fmt(CARB.Cxq,2)} %C a ${fmt(CARB.xq,2)} mm.</b> erf(z) = (C<sub>s</sub> − C<sub>x</sub>)/(C<sub>s</sub> − C₀) = ${fmt(e,4)} → z ≈ ${fmt(inv.z,3)} (tabela). Como z = x/(2√(D·t)): t = x²/(4·z²·D) = <b>${num(tq)} s ≈ ${fmt(tq/3600,1)} h</b>.</p>`;
+  }else h+=`<p><b>4. Problema inverso.</b> O teor desejado precisa estar entre C₀ e C<sub>s</sub>.</p>`;
+  // checagem com a simulação
+  const hyp=CARB.Cs>CE?(()=>{const e=1-(CE-C0)/(Cs-C0);const z=erfInvTable(e).z;return 2*z*sq;})():0;
+  if(hyp>0)h+=`<p>A camada fica hipereutetoide (acima de 0,76 %C) até cerca de <b>${len(hyp*1e4)}</b> da superfície: no resfriamento lento, ali se forma rede de cementita + perlita; mais para dentro, perlita e depois ferrita + perlita.</p>`;
+  $('kSteps').innerHTML=h;
+  fillTables(ci,cj,qi,qj);
+  drawCarb({sq,caseX});
+}
+function fillTables(ci,cj,qi,qj){
+  const hl=i=>i===ci||i===cj||i===qi||i===qj;
+  const n=ERF.length,cols=3,rows=Math.ceil(n/cols);let t='<tr>'+'<th>z</th><th>erf(z)</th>'.repeat(cols)+'</tr>';
+  for(let r=0;r<rows;r++){t+='<tr>';for(let c=0;c<cols;c++){const i=c*rows+r;if(i<n){const k=hl(i)?' class="hl"':'';t+=`<td${k}>${fmt(ERF[i][0],3)}</td><td${k}>${fmt(ERF[i][1],4)}</td>`;}else t+='<td></td><td></td>';}t+='</tr>';}
+  $('erfTab').innerHTML=t;
+  let d=`<tr><th class="l">Difunde</th><th class="l">Em</th><th>D₀ (m²/s)</th><th>Q (kJ/mol)</th><th>D a ${CARB.Tc} °C (m²/s)</th><th>D a ${P.Tt} °C (m²/s)</th><th class="l">Fonte</th></tr>`;
+  for(const r of DROWS){const k=r[5]===CARB.src?' class="hl"':'';
+    const Dc=r[2]*Math.exp(-r[3]*1e3/(RJ*(CARB.Tc+273.15))),Dt=r[2]*Math.exp(-r[3]*1e3/(RJ*(P.Tt+273.15)));
+    d+=`<tr${k}><td class="l">${r[0]}</td><td class="l">${r[1]}</td><td>${sciN(r[2])}</td><td>${fmt(r[3],1)}</td><td>${sciN(Dc)}</td><td>${sciN(Dt)}</td><td class="l">${r[4]}</td></tr>`;}
+  $('dTab').innerHTML=d;
+}
+function drawCarb(info){
+  const [g,w,h]=sizeCanvas($('c4'));
+  const C0=P.C,Cs=CARB.Cs,sq=info?info.sq:Math.sqrt(Dcarb()*CARB.th*3600);
+  const xmaxmm=clamp(Math.max(1,sq*10*4.5),1,6),ymax=Math.max(Cs,C0,0.8)*1.15;
+  const A=axes(g,w,h,xmaxmm,ymax,v=>fmt(v,2),'distância da superfície (mm)',v=>fmt(v,xmaxmm<3?2:1));
+  // regiões
+  g.fillStyle=cssv('--warm');g.globalAlpha=.08;g.fillRect(A.L,A.Y(ymax),A.pw,A.Y(CE)-A.Y(ymax));g.globalAlpha=1;
+  g.fillStyle=cssv('--accent');g.globalAlpha=.08;g.fillRect(A.L,A.Y(ymax),A.X(Math.min(0.72,xmaxmm))-A.L,A.Y(0)-A.Y(ymax));g.globalAlpha=1;
+  g.fillStyle=cssv('--muted');g.font='11.5px "Public Sans",system-ui,sans-serif';g.textAlign='left';
+  g.fillText('campo da simulação (0,72 mm)',A.L+4,A.Y(0)-6);g.textAlign='right';g.fillText('hipereutetoide (> 0,76 %C)',A.L+A.pw-4,A.Y(ymax)+14);
+  const hl=(v,col,t,dash)=>{g.strokeStyle=col;g.lineWidth=1.2;g.setLineDash(dash);g.beginPath();g.moveTo(A.L,A.Y(v));g.lineTo(A.L+A.pw,A.Y(v));g.stroke();g.setLineDash([]);
+    g.fillStyle=col;g.textAlign='right';g.fillText(t,A.L+A.pw-4,A.Y(v)-4);};
+  hl(C0,cssv('--muted'),'C₀ = '+fmt(C0,2)+' %',[5,4]);hl(CE,cssv('--warm'),'0,76 %C',[2,3]);
+  if(Cs<=C0+0.02)return;
+  hl(CARB.Ce,cssv('--accent'),'camada: '+fmt(CARB.Ce,2)+' %',[3,3]);
+  // curva
+  g.strokeStyle='#C8322B';g.lineWidth=2.4;g.beginPath();
+  for(let i=0;i<=240;i++){const xm=xmaxmm*i/240,v=Cs-(Cs-C0)*erfx((xm/10)/(2*sq));i?g.lineTo(A.X(xm),A.Y(v)):g.moveTo(A.X(xm),A.Y(v));}g.stroke();
+  // profundidade de camada e ponto do problema inverso
+  if(info&&info.caseX){const xm=info.caseX*10;if(xm<=xmaxmm){g.strokeStyle=cssv('--accent');g.setLineDash([3,3]);g.beginPath();g.moveTo(A.X(xm),A.Y(0));g.lineTo(A.X(xm),A.Y(CARB.Ce));g.stroke();g.setLineDash([]);
+    g.fillStyle=cssv('--accent');g.beginPath();g.arc(A.X(xm),A.Y(CARB.Ce),4.5,0,7);g.fill();g.textAlign='left';g.fillText('x = '+fmt(xm,2)+' mm',A.X(xm)+6,A.Y(CARB.Ce)-8);}}
+  if(CARB.xq<=xmaxmm){g.fillStyle=cssv('--ink');g.beginPath();g.arc(A.X(CARB.xq),A.Y(CARB.Cxq),4,0,7);g.fill();g.textAlign='left';g.fillText('alvo do problema 4',A.X(CARB.xq)+6,A.Y(CARB.Cxq)+14);}
+  g.fillStyle='#C8322B';g.textAlign='left';g.font='600 12px "Public Sans",system-ui,sans-serif';g.fillText('C(x) após '+fmt(CARB.th,2).replace(/,00$/,'')+' h a '+CARB.Tc+' °C',A.L+8,A.Y(Cs)+16);
+}
+
+// ---------------- aços SAE/AISI e faixas de tratamento térmico ----------------
+const STEELS=[ // nome, %C mín, %C máx, liga?, aplicação típica
+  ['1006',0.02,0.08,0,'Chapas para estampagem profunda'],
+  ['1010',0.08,0.13,0,'Chapas, arames, peças para cementar'],
+  ['1020',0.18,0.23,0,'Estruturas, eixos leves, peças cementadas'],
+  ['1030',0.28,0.34,0,'Peças forjadas, parafusos'],
+  ['1045',0.43,0.50,0,'Eixos, engrenagens, virabrequins'],
+  ['4140',0.38,0.43,1,'Eixos e engrenagens temperados (Cr-Mo)'],
+  ['4340',0.38,0.43,1,'Peças de alta resistência e grandes seções (Ni-Cr-Mo)'],
+  ['1060',0.55,0.65,0,'Molas, rodas ferroviárias'],
+  ['8660',0.55,0.65,1,'Molas e peças temperadas (Ni-Cr-Mo), o aço da prova'],
+  ['1070',0.65,0.75,0,'Molas, lâminas'],
+  ['1080',0.75,0.88,0,'Arames de alta resistência, trilhos'],
+  ['1095',0.90,1.03,0,'Molas, ferramentas de corte'],
+  ['52100',0.98,1.10,1,'Rolamentos (1,45 % Cr)']];
+const CLASSES=[[0,0.25,'Baixo C','#CFE3F7'],[0.25,0.60,'Médio C','#D8EDD9'],[0.60,1.00,'Alto C','#F6E2C3'],[1.00,2.14,'Ultra-alto C','#F3D0CC'],[2.14,6.70,'Ferros fundidos','#DCDCDC']];
+let layerSteel=true,layerTT=false;
+const nom=s=>(s[1]+s[2])/2;
+function ttRanges(C){
+  const hypo=C<CE,a3=TA3(Math.min(C,CE)),acm=TAcm(Math.max(C,CE));
+  const full=hypo?[a3+30,a3+50]:[A1+30,A1+50];
+  const norm=hypo?[a3+50,a3+80]:[Math.min(acm+50,1100),Math.min(acm+80,1130)];
+  return {full,norm,hard:full,sph:[700,720],rec:[600,700],rel:[550,650],a3:hypo?a3:null,acm:hypo?null:acm};
+}
+function steelTable(){
+  const cls=C=>CLASSES.find(k=>C>=k[0]&&C<k[1])||CLASSES[CLASSES.length-1];
+  let t='<tr><th class="l">Aço</th><th>%C</th><th class="l">Classe</th><th>A3 / Acm</th><th>Recozimento pleno e têmpera</th><th>Normalização</th><th class="l">Recozido: constituintes</th><th class="l">Aplicação típica</th></tr>';
+  for(const s of STEELS){const C=nom(s),tt=ttRanges(C),k=cls(C);
+    const crit=tt.a3?`A3 ≈ ${Math.round(tt.a3)} °C`:`Acm ≈ ${Math.round(tt.acm)} °C`;
+    let mic;if(C<CE-0.015){const fa=(CE-C)/(CE-CA);mic=`${Math.round(fa*100)} % ferrita + ${Math.round((1-fa)*100)} % perlita`;}
+    else if(C>CE+0.015){const fc=(C-CE)/(CCM-CE);mic=`${fmt(fc*100,1)} % cementita + ${Math.round((1-fc)*100)} % perlita`;}else mic='100 % perlita';
+    const cur=Math.abs(P.C-C)<0.006?' cur':'';
+    t+=`<tr class="pick${cur}" data-c="${C.toFixed(3)}"><td class="l"><b>${s[0]}</b>${s[3]?' <span class="src">ligado</span>':''}</td><td>${fmt(s[1],2)}–${fmt(s[2],2)}</td><td class="l">${k[2]}</td><td>${crit}</td><td>${Math.round(tt.full[0])}–${Math.round(tt.full[1])} °C</td><td>${Math.round(tt.norm[0])}–${Math.round(tt.norm[1])} °C</td><td class="l">${mic}</td><td class="l">${s[4]}</td></tr>`;}
+  $('steelTab').innerHTML=t;
+  $('steelTab').querySelectorAll('tr.pick').forEach(tr=>tr.onclick=()=>pickSteel(+tr.dataset.c));
+  $('classbar').innerHTML=CLASSES.map(k=>`<div style="flex:${Math.min(k[1]-k[0],0.9).toFixed(3)};background:${k[3]}">${k[2]}<br>${fmt(k[0],2)}–${fmt(k[1],2)} %</div>`).join('');
+}
+function pickSteel(C){
+  $('C').value=Math.max(0.05,Math.min(1.6,C)).toFixed(2);
+  const tt=ttRanges(C);$('Ta').value=Math.round((tt.full[0]+tt.full[1])/10)*5;
+  syncParams('Ta');restart();steelTable();
+}
+function drawLayers(g,X,Y,DX,L,T,pw,ph2,h,full){
+  g.save();g.beginPath();g.rect(L,T,pw,ph2);g.clip();
+  if(layerTT){
+    const band=(fn,col,a,c0=0,c1=Math.min(1.6,DX.c1))=>{g.fillStyle=col;g.globalAlpha=a;g.beginPath();
+      for(let c=c0;c<=c1+1e-9;c+=0.01){const [lo]=fn(c);c===c0?g.moveTo(X(c),Y(lo)):g.lineTo(X(c),Y(lo));}
+      for(let c=c1;c>=c0-1e-9;c-=0.01){const [,hi]=fn(c);g.lineTo(X(c),Y(hi));}
+      g.closePath();g.fill();g.globalAlpha=1;};
+    band(c=>ttRanges(c).rel,'#8A94A3',.22);band(c=>ttRanges(c).rec,'#2E63C8',.16);
+    band(c=>ttRanges(c).sph,'#C0622F',.38,0.25);band(c=>ttRanges(c).full,'#2E9A57',.38);band(c=>ttRanges(c).norm,'#7E57C2',.35);
+  }
+  if(layerSteel){
+    g.globalAlpha=.75;for(const k of CLASSES){if(k[0]>=DX.c1)continue;g.fillStyle=k[3];g.fillRect(X(k[0]),T,X(Math.min(k[1],DX.c1))-X(k[0]),7);}g.globalAlpha=1;
+    g.strokeStyle=cssv('--muted');g.setLineDash([2,4]);g.lineWidth=1;
+    for(const s of STEELS){const c=nom(s);if(c>DX.c1)continue;g.beginPath();g.moveTo(X(c),T+7);g.lineTo(X(c),Y(Math.max(DX.t0,560)));g.stroke();}
+    g.setLineDash([]);
+  }
+  g.restore();
+  if(layerSteel&&!full){
+    g.font='11px "Public Sans",system-ui,sans-serif';g.textAlign='left';
+    const groups=new Map();for(const s of STEELS){const k=nom(s).toFixed(2);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(s);}
+    for(const [k,ss] of groups){const c=+k;if(c>DX.c1)continue;
+      const name=ss.map(s=>s[0]).join('/'),alloy=ss.some(s=>s[3]);
+      g.save();g.translate(X(c)+4,T+ph2+(name.length>6?74:62));g.rotate(-Math.PI/2);g.fillStyle=Math.abs(P.C-c)<0.006?cssv('--accent'):(alloy?cssv('--warm'):cssv('--ink'));g.fillText(name,0,0);g.restore();}
+  }
+}
+
+// ---------------- têmpera: transformação martensítica ----------------
+// Ms × %C aproximada (Krauss); concorda com Andrews (Ms = 539 − 423·C) até ~0,6 %C
+const MSTAB=[[0,540],[0.2,460],[0.4,380],[0.6,310],[0.8,250],[1.0,200],[1.2,160],[1.4,130],[1.6,100],[2.0,60]];
+function MsC(C){C=Math.max(0,C);for(let i=0;i<MSTAB.length-1;i++){const a=MSTAB[i],b=MSTAB[i+1];if(C<=b[0])return a[1]+(C-a[0])/(b[0]-a[0])*(b[1]-a[1]);}return 60-80*(C-2);}
+const KM=0.011;                                   // Koistinen–Marburger: f = 1 − exp[−0,011·(Ms − T)]
+const fKM=(C,T)=>{const d=MsC(C)-T;return d>0?1-Math.exp(-KM*d):0;};
+const HRCTAB=[[0.1,39],[0.2,46],[0.3,51],[0.4,56],[0.5,60],[0.6,63],[0.7,64],[0.8,65],[1.0,66],[1.4,66]];   // 100 % martensita (aprox., Aula 8)
+function HRC(C){if(C<=HRCTAB[0][0])return HRCTAB[0][1];for(let i=0;i<HRCTAB.length-1;i++){const a=HRCTAB[i],b=HRCTAB[i+1];if(C<=b[0])return a[1]+(C-a[0])/(b[0]-a[0])*(b[1]-a[1]);}return 66;}
+let QM='none',QT=25,holdS=10,martFrac=0,raFrac=0,martHRC=0,martC=0,tQ=-1;
+const pkA=new Float32Array(NC),mC=new Float32Array(NC);
+function packets(){ // pacotes/blocos dentro de cada grão austenítico prévio (Voronoi)
+  const per=Math.max(20,auslast/3),M=clamp(Math.round(NC/per),40,4000),sx=new Float32Array(M),sy=new Float32Array(M);
+  for(let i=0;i<M;i++){sx[i]=R()*W;sy[i]=R()*H;}
+  const cs=Math.max(6,Math.sqrt(NC/M)*1.2),gx=Math.ceil(W/cs),gy=Math.ceil(H/cs),cells=[];for(let i=0;i<gx*gy;i++)cells.push([]);
+  for(let i=0;i<M;i++)cells[Math.min(gy-1,sy[i]/cs|0)*gx+Math.min(gx-1,sx[i]/cs|0)].push(i);
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){const c=y*W+x;let b=1e18,bi=0;const cx=x/cs|0,cy=y/cs|0;
+    for(let r=1;r<=4;r++){for(let j=Math.max(0,cy-r);j<=Math.min(gy-1,cy+r);j++)for(let i=Math.max(0,cx-r);i<=Math.min(gx-1,cx+r);i++)
+      for(const s of cells[j*gx+i]){const dx=sx[s]-x,dy=sy[s]-y,d=dx*dx+dy*dy;if(d<b){b=d;bi=s;}}if(b<1e18)break;}
+    const g0=hash((aus[c]>0?aus[c]:1)*13)*Math.PI;          // orientação do grão austenítico prévio
+    const v=((Math.imul(bi+1,2654435761)>>>0)%4);          // variante do pacote
+    pkA[c]=g0+v*Math.PI/3+(v===3?Math.PI/12:0);}
+}
+function lamM(C){return C<0.6?2.6:C>1.0?6.5:2.6+(C-0.6)/0.4*3.9;}
+function quench(){
+  if(tQ>=0)return;
+  tQ=tSim;packets();
+  let nm=0,nra=0,sc=0;
+  for(let c=0;c<NC;c++){
+    if(ph[c]!==0)continue;
+    if(phi[c]>=0.5){const tp=seedType[c]||1;ph[c]=tp;gid[c]=seedOwner[c]||newGrain();Ct[c]=tp===1?CA:CCM;proCells++;phi[c]=0;continue;}
+    const C=Cg[c],f=fKM(C,QT),x=c%W,y=(c/W)|0,a=pkA[c],lm=lamM(C);
+    let u=((x*Math.cos(a)+y*Math.sin(a))/lm)%1;if(u<0)u+=1;
+    u=clamp(u+(R()-0.5)*0.12,0,1);
+    mC[c]=C;Ct[c]=C;phi[c]=0;
+    if(u<f){ph[c]=5;nm++;sc+=C;}else{ph[c]=6;nra++;}
+  }
+  martFrac=nm/NC;raFrac=nra/NC;martC=nm?sc/nm:0;martHRC=nm?HRC(martC):0;
+  proFrac=proCells/NC;
+  histB.push([tSim,proFrac,pearlCells/NC,martFrac]);
+  finish('quenched');
+}
+
+// ---------------- laço e controles ----------------
+let frame=0,accA=0,accB=0,hold=0;
+function loop(){
+  if(playing){
+    const sp=+$('spd').value;
+    if(stage==='A'){if(totalMCS()===0)startB();else{accA+=Math.max(0.5,totalMCS()/220)*sp/3;let k=0;while(accA>=1&&stage==='A'&&k<10){accA-=1;stepA();k++;}if(stage!=='A')hold=40;}}
+    else if(hold>0)hold--;
+    else if(stage==='B'){
+      accB+=sp*1.2;const t0=performance.now();
+      while(accB>=1&&stage==='B'&&performance.now()-t0<14){accB-=1;stepB();if(stage==='B'&&QM==='hold'&&tSim>=holdS){quench();break;}}
+      if(accB>3)accB=3;
+    }
+    render();if(frame++%4===0){stats();drawCharts();if(frame%16===1)updateAtom();}
+  }
+  requestAnimationFrame(loop);
+}
+function outs(){
+  $('taO').textContent=$('ta').value+' u.a.';$('prtO').textContent=fmt(+$('prt').value,2)+' %';
+  const s=+$('shp').value;$('shpO').textContent=s<-0.3?'lisa':s<0.8?'irregular':s<1.6?'ramificada':'muito ramificada';
+  $('nmO').textContent=fmt(Math.pow(10,+$('nm').value),2)+'×';$('gmO').textContent=fmt(Math.pow(10,+$('gm').value),2)+'×';
+  $('spdO').textContent=$('spd').value+'×';
+}
+function start(){playing=true;$('play').textContent='Pausar';}
+function restart(){nPart=-1;pal={};reset(false);start();}
+['ta','prt','shp','nm','gm','spd'].forEach(i=>$(i).addEventListener('input',outs));
+['ta','prt'].forEach(i=>$(i).addEventListener('change',restart));
+['C','Ta','Tt'].forEach(i=>{$(i).addEventListener('input',()=>syncParams(i));$(i).addEventListener('change',restart);});
+document.querySelectorAll('.presets .btn').forEach(b=>b.onclick=()=>{$('C').value=b.dataset.c;$('Ta').value=b.dataset.ta;$('Tt').value=b.dataset.tt;if(b.dataset.h){$('qh').value=b.dataset.h;holdS=Math.pow(10,+b.dataset.h);$('qhO').textContent=fmtT(holdS);}setQ(b.dataset.q||'none');syncParams('Tt');restart();});
+function seg(a,b,on){$(a).setAttribute('aria-pressed',on);$(b).setAttribute('aria-pressed',!on);}
+$('mGB').onclick=()=>{nucMode='gb';seg('mGB','mRD',true);restart();};
+$('mRD').onclick=()=>{nucMode='rd';seg('mGB','mRD',false);restart();};
+$('vFull').onclick=()=>{dgMode='full';seg('vFull','vZoom',true);drawDiagram();};
+$('vZoom').onclick=()=>{dgMode='zoom';seg('vFull','vZoom',false);drawDiagram();};
+function setUnit(u){UNIT=u;['uUm','uNm','uA'].forEach((id,i)=>$(id).setAttribute('aria-pressed',['um','nm','A'][i]===u));scale();stats();drawCharts();updateAtom();}
+$('uUm').onclick=()=>setUnit('um');$('uNm').onclick=()=>setUnit('nm');$('uA').onclick=()=>setUnit('A');
+$('pOr').onclick=()=>{paletteMode='or';pal={};seg('pOr','pMi',true);legend();render();};
+$('pMi').onclick=()=>{paletteMode='mi';pal={};seg('pOr','pMi',false);legend();render();};
+$('play').onclick=()=>{if(stage==='done'||stage==='eq'||stage==='stable'||stage==='quenched'){restart();return;}playing=!playing;$('play').textContent=playing?'Pausar':'Reproduzir';};
+$('restart').onclick=restart;
+$('reseed').onclick=()=>{nPart=-1;pal={};reset(true);start();};
+cv.addEventListener('pointerdown',e=>{const r=cv.getBoundingClientRect();profRow=clamp(Math.floor((e.clientY-r.top)/r.height*H),0,H-1);render();drawProfile();});
+$('carb').addEventListener('change',()=>{carbonView=$('carb').checked;render();});
+['kCs','kT','kt','kCe','kx','kCx'].forEach(i=>{$(i).addEventListener('input',()=>{updateCarb();if(carbMode)drawDiagram();});$(i).addEventListener('change',()=>{if(carbMode&&['kCs','kT','kt'].includes(i)){applyCarbTa();restart();}});});
+$('kAula').onclick=()=>{CARB.src='aula';seg('kAula','kCal',true);updateCarb();if(carbMode)restart();};
+$('kCal').onclick=()=>{CARB.src='cal';seg('kAula','kCal',false);updateCarb();if(carbMode)restart();};
+function applyCarbTa(){$('Ta').value=clamp(CARB.Tc,750,1100);syncParams('Ta');}
+$('kSim').addEventListener('change',()=>{carbMode=$('kSim').checked;$('surf').hidden=!carbMode;if(carbMode)applyCarbTa();else syncParams('Tt');restart();});
+$('lySteel').addEventListener('change',()=>{layerSteel=$('lySteel').checked;drawDiagram();});
+$('lyTT').addEventListener('change',()=>{layerTT=$('lyTT').checked;$('ttleg').hidden=!layerTT;drawDiagram();});
+function setQ(m){QM=m;['qN','qD','qH'].forEach((id,i)=>$(id).setAttribute('aria-pressed',String(['none','direct','hold'][i]===m)));$('qHF').hidden=m!=='hold';verdict();drawDiagram();}
+$('qN').onclick=()=>{setQ('none');restart();};$('qD').onclick=()=>{setQ('direct');restart();};$('qH').onclick=()=>{setQ('hold');restart();};
+$('qA').onclick=()=>{QT=25;seg('qA','qS',true);verdict();drawDiagram();restart();};$('qS').onclick=()=>{QT=-196;seg('qA','qS',false);verdict();drawDiagram();restart();};
+$('qh').addEventListener('input',()=>{holdS=Math.pow(10,+$('qh').value);$('qhO').textContent=fmtT(holdS);});
+$('qh').addEventListener('change',restart);
+holdS=Math.pow(10,+$('qh').value);$('qhO').textContent=fmtT(holdS);
+function scale(){$('sbar').style.width=(100/CELL*cv.clientWidth/W)+'px';$('sbarL').textContent=len(100);}
+window.addEventListener('resize',()=>{scale();drawCharts();drawDiagram();updateAtom();updateCarb();});
+if(window.matchMedia)matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{drawDiagram();drawCharts();});
+
+outs();syncParams('Tt');reset(false);scale();updateAtom();updateCarb();steelTable();
+if(!playing)$('play').textContent='Reproduzir';
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
+
+</body></html>
